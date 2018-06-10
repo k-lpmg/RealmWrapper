@@ -1,5 +1,5 @@
 //
-//  SurrogateRealm.swift
+//  RealmProxiable.swift
 //  RealmWrapper
 //
 //  Created by DongHeeKang on 2018. 6. 10..
@@ -8,14 +8,14 @@
 
 import RealmSwift
 
-public protocol SurrogateRealm {
-    associatedtype Manager where Manager: RealmManageable
+public protocol RealmProxiable {
+    associatedtype RealmManager where RealmManager: RealmManageable
 }
 
-public extension SurrogateRealm {
+public extension RealmProxiable {
     
-    func realmManager() -> Manager {
-        return Manager.shared
+    func realmManager() -> RealmManager {
+        return RealmManager.shared
     }
     
     func results<T: Object>(_ type: T.Type = T.self, filter: String? = nil, sortProperty: String? = nil, ordering: OrderingType = .ascending) -> RealmQuery<T> {
