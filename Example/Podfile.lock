@@ -1,0 +1,29 @@
+PODS:
+  - Realm (3.7.1):
+    - Realm/Headers (= 3.7.1)
+  - Realm/Headers (3.7.1)
+  - RealmSwift (3.7.1):
+    - Realm (= 3.7.1)
+  - RealmWrapper (0.1.1):
+    - RealmSwift (~> 3.7.1)
+
+DEPENDENCIES:
+  - RealmWrapper (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Realm
+    - RealmSwift
+
+EXTERNAL SOURCES:
+  RealmWrapper:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Realm: 906be37d52f17f25484ac01643a7f26a9d3bfbd5
+  RealmSwift: 1c2b6bae3dc55bb87e080ffa96537d71442f6dce
+  RealmWrapper: 1458cdf8b5faca535c3d39ab81b447c689b1c3a4
+
+PODFILE CHECKSUM: 15cf451b934d22a365e3f28ca7c6bcaeb2469134
+
+COCOAPODS: 1.5.3

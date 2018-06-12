@@ -77,7 +77,7 @@ public extension RealmManageable {
     
     // MARK: - Private methods
     
-    func configuration() -> Realm.Configuration {
+    private func configuration() -> Realm.Configuration {
         var config = Realm.Configuration()
         if isUseInMemory {
             config.inMemoryIdentifier = "inMemory-\(fileName)"

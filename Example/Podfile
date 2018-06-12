@@ -1,0 +1,5 @@
+target 'RealmWrapperExample' do
+  use_frameworks!
+
+  pod 'RealmWrapper', :path => '../'
+end

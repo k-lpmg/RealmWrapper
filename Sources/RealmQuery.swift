@@ -8,18 +8,29 @@
 
 import RealmSwift
 
-public typealias RealmQueryChanged = ([Int]) -> Void
+public typealias RealmQueryChanged = ([IndexPath]) -> Void
 
 public class RealmQuery<T: Object> {
 
     // MARK: - Properties
-
-    private(set) var notificationToken: NotificationToken?
+    
     private var deleteNotificationBlock: RealmQueryChanged?
     private var insertNotificationBlock: RealmQueryChanged?
     private var modificateNotificationBlock: RealmQueryChanged?
 
-    var results: Results<T>
+    private(set) var notificationToken: NotificationToken?
+    private(set) var section: Int?
+    
+    public var results: Results<T>
+    public var count: Int {
+        return results.count
+    }
+    
+    // MARK: - Subscript
+    
+    public subscript(index: Int) -> T {
+        return results[index]
+    }
 
     // MARK: - Con(De)structor
 
@@ -28,21 +39,45 @@ public class RealmQuery<T: Object> {
     }
 
     deinit {
-        clear()
+        notificationClear()
     }
 
     // MARK: - Public methods
     
-    func deleteNotification(_ block: @escaping ([Int]) -> Void) {
-        deleteNotificationBlock = block
+    public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+        deleteNotificationBlock = { [weak object] (insertions) in
+            guard let weakObject = object else {return}
+            
+            block(weakObject, insertions)
+        }
+        return self
     }
     
-    func insertNotification(_ block: @escaping ([Int]) -> Void) {
-        insertNotificationBlock = block
+    public func addInsertNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+        insertNotificationBlock = { [weak object] (insertions) in
+            guard let weakObject = object else {return}
+            
+            block(weakObject, insertions)
+        }
+        return self
     }
     
-    func modificateNotification(_ block: @escaping ([Int]) -> Void) {
-        modificateNotificationBlock = block
+    public func addModificateNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+        modificateNotificationBlock = { [weak object] (insertions) in
+            guard let weakObject = object else {return}
+            
+            block(weakObject, insertions)
+        }
+        return self
+    }
+    
+    public func registerNotification() {
+        addNotification()
+    }
+    
+    public func setSection(_ section: Int) -> Self {
+        self.section = section
+        return self
     }
 
     // MARK: - Private methods
@@ -54,17 +89,25 @@ public class RealmQuery<T: Object> {
             
             switch change {
             case .update(_, let deletions, let insertions, let modifications):
-                weakSelf.deleteNotificationBlock?(deletions)
-                weakSelf.insertNotificationBlock?(insertions)
-                weakSelf.modificateNotificationBlock?(modifications)
+                let indexPathsForDeletions = weakSelf.indexPathsFromInt(deletions)
+                let indexPathsForInsertions = weakSelf.indexPathsFromInt(insertions)
+                let indexPathsForModifications = weakSelf.indexPathsFromInt(modifications)
+                
+                weakSelf.deleteNotificationBlock?(indexPathsForDeletions)
+                weakSelf.insertNotificationBlock?(indexPathsForInsertions)
+                weakSelf.modificateNotificationBlock?(indexPathsForModifications)
             default:
                 break
             }
         }
     }
-
-    private func clear() {
-        notificationClear()
+    
+    private func indexPathsFromInt(_ data: [Int]) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+        data.forEach { (datum) in
+            indexPaths.append(IndexPath(row: datum, section: section ?? 0))
+        }
+        return indexPaths
     }
     
     private func notificationClear() {
