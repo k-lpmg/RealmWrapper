@@ -129,10 +129,7 @@ final class TableViewController: UITableViewController {
 extension TableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        var count = 0
-        count += users.count > 0 ? 1 : 0
-        count += usersInMemory.count > 0 ? 1 : 0
-        return count
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -185,6 +182,10 @@ extension TableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard indexPath.section == 0 else {
+            UserInMemoryRealmProxy().delete(getUserFrom(indexPath: indexPath))
+            return
+        }
         UserRealmProxy().delete(getUserFrom(indexPath: indexPath))
     }
     

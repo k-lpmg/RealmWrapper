@@ -6,6 +6,7 @@
 //  Copyright © 2018년 k-lpmg. All rights reserved.
 //
 
+import RealmSwift
 import RealmWrapper
 
 final class InMemoryRealmManager: RealmManageable {
@@ -20,6 +21,9 @@ final class InMemoryRealmManager: RealmManageable {
     }
     var fileName: String {
         return "inMemory"
+    }
+    var objectTypes: [Object.Type]? {
+        return [User.self]
     }
     
 }
