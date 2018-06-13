@@ -13,7 +13,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     // MARK: - Properties
     
     var users: RealmQuery<User> {
-        return results(sortProperty: "date", ordering: .ascending)
+        return query(sortProperty: "date", ordering: .ascending)
     }
     
     // MARK: Methods
@@ -40,7 +40,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     }
     
     func userFromId(_ id: String) -> User? {
-        return results(filter: "id == '\(id)'").results.first
+        return query(filter: "id == '\(id)'").results.first
     }
     
 }

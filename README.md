@@ -51,7 +51,7 @@ UserRealmProxy().append(user)
 
 ## QuickStart
 
-1. Create a RealmManager that manages one realm file.
+1. Create a `RealmManager` that manages one realm file.
 
 ```swift
 final class UserRealmManager: RealmManageable {
@@ -74,13 +74,13 @@ final class UserRealmManager: RealmManageable {
 }
 ```
 
-2. Create a RealmProxy that is responsible for the CRUD function to be accessed by the Controller.
+2. Create a `RealmProxy` that is responsible for the CRUD function to be accessed by the Controller.
 
 ```swift
 struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
 
     var users: RealmQuery<User> {
-        return results(sortProperty: "name", ordering: .ascending)
+        return query(sortProperty: "name", ordering: .ascending)
     }
 
     func append(_ user: User) {
@@ -104,7 +104,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     }
 
     func userFromId(_ id: String) -> User? {
-        return results(filter: "id == '\(id)'").results.first
+        return query(filter: "id == '\(id)'").results.first
     }
 
 }
@@ -144,7 +144,7 @@ users.setSection(0)
 }
 ```
 
-Also, since RealmQuery is doing weak handling to prevent the retain cycle, you can use closures without worrying about the retain cycle if you pass only self.
+Also, since [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmQuery.swift) is doing weak handling to prevent the retain cycle, you can use closures without worrying about the retain cycle if you pass only self.
 
 ```swift
 

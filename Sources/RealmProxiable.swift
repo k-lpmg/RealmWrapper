@@ -18,7 +18,7 @@ public extension RealmProxiable {
         return RealmManager.shared
     }
     
-    func results<T: Object>(_ type: T.Type = T.self, filter: String? = nil, sortProperty: String? = nil, ordering: OrderingType = .ascending) -> RealmQuery<T> {
+    func query<T: Object>(_ type: T.Type = T.self, filter: String? = nil, sortProperty: String? = nil, ordering: OrderingType = .ascending) -> RealmQuery<T> {
         var results = realmManager().realm.objects(type)
         if let filter = filter {
             results = results.filter(filter)
