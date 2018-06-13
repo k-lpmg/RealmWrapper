@@ -1,35 +1,174 @@
 # RealmWrapper
 
-Super awesome RealmSwift wrapper library for iOS.
+RealmWrapper is RealmSwift wrapper library for iOS.
+
+If you use 'RealmWrapper', you can easily use UI update through Notification and Transaction processing.
+Also, you do not have to worry about the retain cycle when using self in the Notification block.
+
+- [Comparison](#comparison)
+- [QuickStart](#quickstart)
+- [Installation](#installation)
+
+## Comparison
+
+If you use 'RealmSwift', you have to be careful about try statement and thread processing every transaction.
+However, In 'RealmManager' which manages one realm file, transaction processing is performed using Realm-only DispatchQueue.
+'RealmProxy', which owns 'RealmManager', can easily add, modify or delete models without having to worry about try statement and thread processing.
+
+> User Model
+```swift
+@objcMembers
+class User: Object {
+    dynamic var id: String?
+    dynamic var name: String?
+
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+}
+```
+
+> Using RealmSwift
+```swift
+var user = User()
+user.id = UUID().uuidString
+user.name = "Kevin"
+
+let realm = try! Realm(configuration: Realm.Configuration(fileURL: URL(fileURLWithPath: RLMRealmPathForFile("user.realm")), schemaVersion: 1, objectTypes: [User.self]))
+try! realm.write {
+    realm.add(user)
+}
+```
+
+> Using RealmWrapper
+```swift
+var user = User()
+user.id = UUID().uuidString
+user.name = "Kevin"
+
+UserRealmProxy().append(user)
+```
+
+## QuickStart
+
+1. Create a RealmManager that manages one realm file.
+
+```swift
+final class UserRealmManager: RealmManageable {
+
+    static var shared: UserRealmManager = UserRealmManager()
+
+    var isUseInMemory: Bool {
+        return false
+    }
+    var schemaVersion: UInt64 {
+        return 1
+    }
+    var fileName: String {
+        return "user"
+    }
+    var objectTypes: [Object.Type]? {
+        return [User.self]
+    }
+
+}
+```
+
+2. Create a RealmProxy that is responsible for the CRUD function to be accessed by the Controller.
+
+```swift
+struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
+
+    var users: RealmQuery<User> {
+        return results(sortProperty: "name", ordering: .ascending)
+    }
+
+    func append(_ user: User) {
+        transaction { (realm) in
+            realm.add(user, update: true)
+        }
+    }
+
+    func delete(_ user: User) {
+        transaction { (realm) in
+            realm.delete(user)
+        }   
+    }
+
+    func updateName(id: String, name: String) {
+        guard let user = userFromId(id) else {return}
+        transaction { (realm) in
+            user.name = name
+            realm.add(user, update: true)
+        }
+    }
+
+    func userFromId(_ id: String) -> User? {
+        return results(filter: "id == '\(id)'").results.first
+    }
+
+}
+
+var user = User()
+user.id = UUID().uuidString
+user.name = "Kevin"
+
+UserRealmProxy().append(user)
+UserRealmProxy().delete(user)
+UserRealmProxy().updateName(id: user.id, name: "Kris")
+```
+
+3. If you want to register the notification of the status of the Realm object in the controller, you can register the notification in RealmQuery.
+
+```swift
+let users: RealmQuery<User> = UserRealmProxy().users
+
+users.setSection(0)
+    .addInsertNotificationBlock(self) { (self, insertions) in
+        guard !insertions.isEmpty else {return}
+
+        self.tableView.reloadData()
+    }
+    .addModificateNotificationBlock(self) { (self, modifications) in
+        guard !modifications.isEmpty else {return}
+
+        self.tableView.reloadRows(at: modifications, with: .fade)
+    }
+    .addDeleteNotificationBlock(self) { (self, deletions) in
+        guard !deletions.isEmpty else {return}
+
+        self.tableView.deleteRows(at: deletions, with: .fade)
+    }
+    .registerNotification()
+
+}
+```
+
+Also, since RealmQuery is doing weak handling to prevent the retain cycle, you can use closures without worrying about the retain cycle if you pass only self.
+
+```swift
+
+public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+    deleteNotificationBlock = { [weak object] (insertions) in
+        guard let weakObject = object else {return}
+
+        block(weakObject, insertions)
+    }
+    
+    return self
+}
+```
 
 ## Installation
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
-```bash
-$ gem install cocoapods
+Just add to your project's `Podfile`:
+
 ```
-
-> CocoaPods 1.1+ is required to build Alamofire 4.0+.
-
-To integrate Alamofire into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
-use_frameworks!
-
-target '<Your Target Name>' do
 pod 'RealmWrapper'
-end
-```
-
-Then, run the following command:
-
-```bash
-$ pod install
 ```
 
 ## LICENSE
