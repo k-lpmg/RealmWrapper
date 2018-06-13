@@ -60,36 +60,24 @@ final class TableViewController: UITableViewController {
     private func setRealmNotification() {
         users.setSection(0)
             .addInsertNotificationBlock(self) { (self, insertions) in
-                guard !insertions.isEmpty else {return}
-                
                 self.tableView.reloadData()
             }
             .addModificateNotificationBlock(self) { (self, modifications) in
-                guard !modifications.isEmpty else {return}
-                
                 self.tableView.reloadRows(at: modifications, with: .fade)
             }
             .addDeleteNotificationBlock(self) { (self, deletions) in
-                guard !deletions.isEmpty else {return}
-                
                 self.tableView.deleteRows(at: deletions, with: .fade)
             }
             .registerNotification()
         
         usersInMemory.setSection(1)
             .addInsertNotificationBlock(self) { (self, insertions) in
-                guard !insertions.isEmpty else {return}
-                
                 self.tableView.reloadData()
             }
             .addModificateNotificationBlock(self) { (self, modifications) in
-                guard !modifications.isEmpty else {return}
-                
                 self.tableView.reloadRows(at: modifications, with: .fade)
             }
             .addDeleteNotificationBlock(self) { (self, deletions) in
-                guard !deletions.isEmpty else {return}
-                
                 self.tableView.deleteRows(at: deletions, with: .fade)
             }
             .registerNotification()

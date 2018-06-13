@@ -82,9 +82,15 @@ public class RealmQuery<T: Object> {
                 let indexPathsForInsertions = weakSelf.indexPathsFromInt(insertions)
                 let indexPathsForModifications = weakSelf.indexPathsFromInt(modifications)
                 
-                weakSelf.deleteNotificationBlock?(indexPathsForDeletions)
-                weakSelf.insertNotificationBlock?(indexPathsForInsertions)
-                weakSelf.modificateNotificationBlock?(indexPathsForModifications)
+                if !deletions.isEmpty {
+                    weakSelf.deleteNotificationBlock?(indexPathsForDeletions)
+                }
+                if !insertions.isEmpty {
+                    weakSelf.insertNotificationBlock?(indexPathsForInsertions)
+                }
+                if !modifications.isEmpty {
+                    weakSelf.modificateNotificationBlock?(indexPathsForModifications)
+                }
             default:
                 break
             }
