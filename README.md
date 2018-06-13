@@ -1,8 +1,8 @@
 # RealmWrapper [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=for-the-badge)](https://raw.githubusercontent.com/k-lpmg/RealmWrapper/master/LICENSE) [![Cocoapods](https://img.shields.io/cocoapods/v/RealmWrapper.svg?style=for-the-badge)](https://cocoapods.org/pods/RealmWrapper)
 
-RealmWrapper is RealmSwift wrapper library for iOS.
+RealmWrapper is wrapper library for [RealmSwift](https://github.com/realm/realm-cocoa/tree/master/RealmSwift) in [realm-cocoa](https://github.com/realm/realm-cocoa)
 
-If you use 'RealmWrapper', you can easily use UI update through Notification and Transaction processing.
+If you use [RealmWrapper](https://github.com/k-lpmg/RealmWrapper), you can easily use UI update through Notification and Transaction processing.
 Also, you do not have to worry about the retain cycle when using self in the Notification block.
 
 - [Comparison](#comparison)
@@ -11,9 +11,9 @@ Also, you do not have to worry about the retain cycle when using self in the Not
 
 ## Comparison
 
-If you use 'RealmSwift', you have to be careful about try statement and thread processing every transaction.
-However, In 'RealmManager' which manages one realm file, transaction processing is performed using Realm-only DispatchQueue.
-'RealmProxy', which owns 'RealmManager', can easily add, modify or delete models without having to worry about try statement and thread processing.
+If you use [RealmSwift](https://github.com/realm/realm-cocoa/tree/master/RealmSwift), you have to be careful about try statement and thread processing every transaction.
+However, In [RealmManageable](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmManageable.swift) which manages one realm file, transaction processing is performed using Realm-only DispatchQueue.
+[RealmProxiable](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmProxiable.swift), which owns [RealmManageable](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmManageable.swift), can easily add, modify or delete models without having to worry about try statement and thread processing.
 
 > User Model
 ```swift
@@ -118,7 +118,7 @@ UserRealmProxy().delete(user)
 UserRealmProxy().updateName(id: user.id, name: "Kris")
 ```
 
-3. If you want to register the notification of the status of the Realm object in the controller, you can register the notification in RealmQuery.
+3. If you want to register the notification of the status of the Realm object in the controller, you can register the notification in [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmQuery.swift).
 
 ```swift
 let users: RealmQuery<User> = UserRealmProxy().users
