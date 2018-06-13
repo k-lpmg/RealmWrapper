@@ -72,17 +72,6 @@ public class RealmQuery<T: Object> {
     }
     
     public func registerNotification() {
-        addNotification()
-    }
-    
-    public func setSection(_ section: Int) -> Self {
-        self.section = section
-        return self
-    }
-
-    // MARK: - Private methods
-    
-    private func addNotification() {
         notificationClear()
         notificationToken = results.observe { [weak self] (change) in
             guard let weakSelf = self else {return}
@@ -101,6 +90,13 @@ public class RealmQuery<T: Object> {
             }
         }
     }
+    
+    public func setSection(_ section: Int) -> Self {
+        self.section = section
+        return self
+    }
+
+    // MARK: - Private methods
     
     private func indexPathsFromInt(_ data: [Int]) -> [IndexPath] {
         var indexPaths = [IndexPath]()
