@@ -1,4 +1,4 @@
-# RealmWrapper
+# RealmWrapper [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/k-lpmg/RealmWrapper/master/LICENSE) [![Cocoapods](https://img.shields.io/cocoapods/v/RealmWrapper.svg?style=for-the-badge)](https://cocoapods.org/pods/RealmWrapper)
 
 RealmWrapper is RealmSwift wrapper library for iOS.
 
