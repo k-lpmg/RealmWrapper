@@ -1,4 +1,5 @@
-# RealmWrapper [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=for-the-badge)](https://raw.githubusercontent.com/k-lpmg/RealmWrapper/master/LICENSE) [![Cocoapods](https://img.shields.io/cocoapods/v/RealmWrapper.svg?style=for-the-badge)](https://cocoapods.org/pods/RealmWrapper)
+# RealmWrapper 
+[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat-square)](https://raw.githubusercontent.com/k-lpmg/RealmWrapper/master/LICENSE) [![Cocoapods](https://img.shields.io/cocoapods/v/RealmWrapper.svg?style=flat-square)](https://cocoapods.org/pods/RealmWrapper)
 
 RealmWrapper is wrapper library for [RealmSwift](https://github.com/realm/realm-cocoa/tree/master/RealmSwift) in [realm-cocoa](https://github.com/realm/realm-cocoa)
 
@@ -6,8 +7,9 @@ If you use [RealmWrapper](https://github.com/k-lpmg/RealmWrapper), you can easil
 Also, you do not have to worry about the retain cycle when using self in the Notification block.
 
 - [Comparison](#comparison)
-- [QuickStart](#quickstart)
+- [Getting Started](#getting-started)
 - [Installation](#installation)
+- [Usage](#usage)
 
 
 ## Comparison
@@ -51,7 +53,7 @@ try! realm.write {
 ```
 
 
-## QuickStart
+## Getting Started
 
 1. Create a `RealmManager` that manages one realm file.
 
