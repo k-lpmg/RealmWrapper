@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RealmWrapper"
-  s.version      = "0.2.3"
+  s.version      = "0.2.4"
   s.summary      = "Simple wrapper for RealmSwift"
   s.description  = "This is simple wrapper that wrapper is easy to use transaction synchronous processing and realm notifications."
   s.homepage     = "https://github.com/k-lpmg/RealmWrapper"
