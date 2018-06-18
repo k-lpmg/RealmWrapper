@@ -162,15 +162,13 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ---------- |
-| `isUseInMemory` | `Bool` | ` ` |`Use InMemory Realm` |
+| `isUseInMemory` | `Bool` | `required` |`Use InMemory Realm` |
 | `appGroupIdentifier` | `String?` | `nil` |`Value for Realm file directory for App Extension`|
 | `objectTypes` | `[Object.Type]?` | `nil` |`Type of Realm object used in realm file`|
 | `migrationBlock` | `String` | `nil` |`Migration Block`|
 
 
 ## Installation
-
-### CocoaPods
 
 #### CocoaPods (iOS 8+)
 
