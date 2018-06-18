@@ -9,6 +9,7 @@ Also, you do not have to worry about the retain cycle when using self in the Not
 - [QuickStart](#quickstart)
 - [Installation](#installation)
 
+
 ## Comparison
 
 If you use [RealmSwift](https://github.com/realm/realm-cocoa/tree/master/RealmSwift), you have to be careful about try statement and thread processing every transaction.
@@ -28,6 +29,15 @@ class User: Object {
 }
 ```
 
+> Using RealmWrapper
+```swift
+var user = User()
+user.id = UUID().uuidString
+user.name = "Kevin"
+
+UserRealmProxy().append(user)
+```
+
 > Using RealmSwift
 ```swift
 var user = User()
@@ -40,14 +50,6 @@ try! realm.write {
 }
 ```
 
-> Using RealmWrapper
-```swift
-var user = User()
-user.id = UUID().uuidString
-user.name = "Kevin"
-
-UserRealmProxy().append(user)
-```
 
 ## QuickStart
 
@@ -153,17 +155,36 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 }
 ```
 
+
+## Usage
+
+#### RealmManageable Property
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ---------- |
+| `isUseInMemory` | `Bool` | ` ` |`Use InMemory Realm` |
+| `appGroupIdentifier` | `String?` | `nil` |`Value for Realm file directory for App Extension`|
+| `objectTypes` | `[Object.Type]?` | `nil` |`Type of Realm object used in realm file`|
+| `migrationBlock` | `String` | `nil` |`Migration Block`|
+
+
 ## Installation
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
+#### CocoaPods (iOS 8+)
 
-Just add to your project's `Podfile`:
+You can use [CocoaPods](http://cocoapods.org/) to install `RealmWrapper` by adding it to your `Podfile`:
 
-```
+```ruby
+platform :ios, '8.0'
+use_frameworks!
+
+target 'MyApp' do
 pod 'RealmWrapper'
+end
 ```
+
 
 ## LICENSE
 
