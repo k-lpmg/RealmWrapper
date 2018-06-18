@@ -26,6 +26,7 @@ public protocol RealmManageable {
     
     var isUseInMemory: Bool { get }
     var schemaVersion: UInt64 { get }
+    var appGroupIdentifier: String? { get }
     var fileName: String { get }
     var objectTypes: [Object.Type]? { get }
     var migrationBlock: MigrationBlock? { get }
@@ -45,6 +46,9 @@ public extension RealmManageable {
     
     // MARK: - Properties
     
+    var appGroupIdentifier: String? {
+        return nil
+    }
     var objectTypes: [Object.Type]? {
         return nil
     }
@@ -82,7 +86,11 @@ public extension RealmManageable {
         if isUseInMemory {
             config.inMemoryIdentifier = "inMemory-\(fileName)"
         } else {
-            config.fileURL = URL(fileURLWithPath: RLMRealmPathForFile("\(fileName).realm"))
+            if let appGroupIdentifier = appGroupIdentifier {
+                config.fileURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)?.appendingPathComponent(fileName)
+            } else {
+                config.fileURL = URL(fileURLWithPath: RLMRealmPathForFile("\(fileName).realm"))
+            }
             config.objectTypes = objectTypes
         }
         config.schemaVersion = schemaVersion

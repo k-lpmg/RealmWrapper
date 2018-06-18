@@ -10,7 +10,7 @@ import RealmSwift
 
 public typealias RealmQueryChanged = ([IndexPath]) -> Void
 
-public class RealmQuery<T: Object> {
+final public class RealmQuery<T: Object> {
 
     // MARK: - Properties
     
