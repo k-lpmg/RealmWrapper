@@ -2,4 +2,7 @@
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
-Pods/
+
+# Carthage
+Carthage/Build
+Carthage/Checkouts
