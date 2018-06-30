@@ -175,7 +175,7 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 
 ## Installation
 
-#### CocoaPods (iOS 8+)
+### CocoaPods (iOS 8+)
 
 You can use [CocoaPods](http://cocoapods.org/) to install `RealmWrapper` by adding it to your `Podfile`:
 
@@ -186,6 +186,13 @@ use_frameworks!
 target 'MyApp' do
 pod 'RealmWrapper'
 end
+```
+
+### Carthage (iOS 8+)
+
+Cartfile
+```ruby
+github "k-lpmg/RealmWrapper"
 ```
 
 
