@@ -9,6 +9,8 @@ env:
     - SDK="$IOS_SDK"      TEST=0  DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
 
 before_install:
+  - brew update
+  - if brew outdated | grep -qx carthage; then brew upgrade carthage; fi
   - travis_wait 35 carthage bootstrap --platform iOS
 
 install:
@@ -19,7 +21,7 @@ before_script:
 
 script:
     - xcodebuild clean build test
-      -project "$WORKSPACE"
+      -project "$PROJECT"
       -scheme "$SCHEME"
       -sdk "$SDK"
       -destination "$DESTINATION" | xcpretty -c
