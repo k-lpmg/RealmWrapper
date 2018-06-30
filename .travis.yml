@@ -13,7 +13,7 @@ install:
 
 before_script:
   - set -o pipefail
-  - carthage update --platform iOS
+  - travis_wait 35 carthage bootstrap --platform iOS
 
 script:
     - xcodebuild clean build test
