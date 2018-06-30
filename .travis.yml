@@ -1,0 +1,23 @@
+osx_image: xcode9.4
+language: objective-c
+env:
+  global:
+    - PROJECT="RealmWrapper.xcodeproj"
+    - SCHEME="RealmWrapper"
+    - IOS_SDK="iphonesimulator"
+  matrix:
+    - SDK="$IOS_SDK"      TEST=0  DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
+
+install:
+  - swift --version
+
+before_script:
+  - set -o pipefail
+  - pod install
+
+script:
+    - xcodebuild clean build test
+      -project "$WORKSPACE"
+      -scheme "$SCHEME"
+      -sdk "$SDK"
+      -destination "$DESTINATION" | xcpretty -c
