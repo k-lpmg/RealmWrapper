@@ -13,7 +13,7 @@ install:
 
 before_script:
   - set -o pipefail
-  - pod install
+  - carthage update --platform iOS
 
 script:
     - xcodebuild clean build test
