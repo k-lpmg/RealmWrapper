@@ -8,12 +8,14 @@ env:
   matrix:
     - SDK="$IOS_SDK"      TEST=0  DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
 
+before_install:
+  - travis_wait 35 carthage bootstrap --platform iOS
+
 install:
   - swift --version
 
 before_script:
   - set -o pipefail
-  - travis_wait 35 carthage bootstrap --platform iOS
 
 script:
     - xcodebuild clean build test
