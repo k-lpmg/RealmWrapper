@@ -17,7 +17,7 @@ before_script:
 
 script:
     - travis_retry xcodebuild clean build test
-      -workspave "$WORKSPACE"
+      -workspace "$WORKSPACE"
       -scheme "$SCHEME"
       -sdk "$SDK"
       -destination "$DESTINATION" | xcpretty -c
