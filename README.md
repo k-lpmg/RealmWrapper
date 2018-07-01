@@ -152,10 +152,10 @@ Also, since [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sour
 ```swift
 
 public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
-    deleteNotificationBlock = { [weak object] (insertions) in
+    deleteNotificationBlock = { [weak object] (deletions) in
         guard let weakObject = object else {return}
 
-        block(weakObject, insertions)
+        block(weakObject, deletions)
     }
     
     return self
@@ -179,8 +179,6 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 
 ### CocoaPods (iOS 8+)
 
-You can use [CocoaPods](http://cocoapods.org/) to install `RealmWrapper` by adding it to your `Podfile`:
-
 ```ruby
 platform :ios, '8.0'
 use_frameworks!
@@ -192,7 +190,6 @@ end
 
 ### Carthage (iOS 8+)
 
-Cartfile
 ```ruby
 github "k-lpmg/RealmWrapper"
 ```
