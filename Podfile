@@ -4,7 +4,7 @@ use_frameworks!
 def shared_pods
   inhibit_all_warnings!
 
-  pod 'Realm'
+  pod 'RealmSwift'
 end
 
 target 'RealmWrapper' do
