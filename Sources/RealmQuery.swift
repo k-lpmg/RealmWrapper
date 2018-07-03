@@ -39,7 +39,7 @@ final public class RealmQuery<T: Object> {
     }
 
     deinit {
-        notificationClear()
+        clearNotification()
     }
 
     // MARK: - Public methods
@@ -71,8 +71,12 @@ final public class RealmQuery<T: Object> {
         return self
     }
     
+    public func clearNotification() {
+        notificationToken?.invalidate()
+    }
+    
     public func registerNotification() {
-        notificationClear()
+        clearNotification()
         notificationToken = results.observe { [weak self] (change) in
             guard let weakSelf = self else {return}
             
@@ -110,10 +114,6 @@ final public class RealmQuery<T: Object> {
             indexPaths.append(IndexPath(row: datum, section: section ?? 0))
         }
         return indexPaths
-    }
-    
-    private func notificationClear() {
-        notificationToken?.invalidate()
     }
 
 }
