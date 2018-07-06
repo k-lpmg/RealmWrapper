@@ -100,14 +100,10 @@ public extension RealmManageable {
     
     private func perform(execution: @escaping () -> Void) {
         if DispatchQueue.isCurrentQueue(queue: Self.queue) {
-            autoreleasepool {
-                execution()
-            }
+            execution()
         } else {
             Self.queue.sync {
-                autoreleasepool {
-                    execution()
-                }
+                execution()
             }
         }
     }
