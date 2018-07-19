@@ -114,10 +114,11 @@ public extension RealmManageable {
         if isUseInMemory {
             config.inMemoryIdentifier = "inMemory-\(fileName)"
         } else {
+            let file = "\(fileName).realm"
             if let appGroupIdentifier = appGroupIdentifier {
-                config.fileURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)?.appendingPathComponent(fileName)
+                config.fileURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)?.appendingPathComponent(file)
             } else {
-                config.fileURL = URL(fileURLWithPath: RLMRealmPathForFile("\(fileName).realm"))
+                config.fileURL = URL(fileURLWithPath: RLMRealmPathForFile(file))
             }
             config.objectTypes = objectTypes
         }
