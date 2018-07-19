@@ -24,12 +24,17 @@ public protocol RealmManageable {
 
     // MARK: - Properties
     
+    var deleteRealmIfMigrationNeeded: Bool { get }
     var isUseInMemory: Bool { get }
+    var readOnly: Bool { get }
     var schemaVersion: UInt64 { get }
-    var appGroupIdentifier: String? { get }
     var fileName: String { get }
-    var objectTypes: [Object.Type]? { get }
+    var appGroupIdentifier: String? { get }
+    var encryptionKey: Data? { get }
+    var shouldCompactOnLaunch: ((Int, Int) -> Bool)? { get }
     var migrationBlock: MigrationBlock? { get }
+    var syncConfiguration: SyncConfiguration? { get }
+    var objectTypes: [Object.Type]? { get }
     var realm: Realm { get }
     
     // MARK: - Methods
@@ -46,13 +51,28 @@ public extension RealmManageable {
     
     // MARK: - Properties
     
+    var deleteRealmIfMigrationNeeded: Bool {
+        return false
+    }
+    var readOnly: Bool {
+        return false
+    }
     var appGroupIdentifier: String? {
         return nil
     }
-    var objectTypes: [Object.Type]? {
+    var encryptionKey: Data? {
+        return nil
+    }
+    var shouldCompactOnLaunch: ((Int, Int) -> Bool)? {
         return nil
     }
     var migrationBlock: MigrationBlock? {
+        return nil
+    }
+    var syncConfiguration: SyncConfiguration? {
+        return nil
+    }
+    var objectTypes: [Object.Type]? {
         return nil
     }
     var realm: Realm {
@@ -83,6 +103,14 @@ public extension RealmManageable {
     
     private func configuration() -> Realm.Configuration {
         var config = Realm.Configuration()
+        config.schemaVersion = schemaVersion
+        config.migrationBlock = migrationBlock
+        config.deleteRealmIfMigrationNeeded = deleteRealmIfMigrationNeeded
+        config.readOnly = readOnly
+        config.encryptionKey = encryptionKey
+        config.shouldCompactOnLaunch = shouldCompactOnLaunch
+        config.syncConfiguration = syncConfiguration
+        
         if isUseInMemory {
             config.inMemoryIdentifier = "inMemory-\(fileName)"
         } else {
@@ -93,8 +121,6 @@ public extension RealmManageable {
             }
             config.objectTypes = objectTypes
         }
-        config.schemaVersion = schemaVersion
-        config.migrationBlock = migrationBlock
         return config
     }
     
