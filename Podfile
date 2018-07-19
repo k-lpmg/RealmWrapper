@@ -12,7 +12,7 @@ target 'RealmWrapper' do
 
   target 'RealmWrapperExample' do
     inherit! :search_paths
-    shared_pods
+    pod 'RealmWrapper'
   end
 
   target 'RealmWrapperTests' do
