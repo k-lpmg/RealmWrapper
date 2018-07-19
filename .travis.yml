@@ -2,22 +2,26 @@ osx_image: xcode9.4
 language: objective-c
 env:
   global:
-    - WORKSPACE="RealmWrapper.xcworkspace"
+    - PROJECT="RealmWrapper.xcodeproj"
     - SCHEME="RealmWrapper"
     - IOS_SDK="iphonesimulator"
   matrix:
     - SDK="$IOS_SDK"      TEST=0  DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
 
+before_install:
+  - brew update
+  - if brew outdated | grep -qx carthage; then brew upgrade carthage; fi
+  - travis_wait 35 carthage bootstrap --platform iOS
+
 install:
   - swift --version
-  - pod install
 
 before_script:
   - set -o pipefail
 
 script:
     - travis_retry xcodebuild clean build test
-      -workspace "$WORKSPACE"
+      -project "$PROJECT"
       -scheme "$SCHEME"
       -sdk "$SDK"
       -destination "$DESTINATION" | xcpretty -c
