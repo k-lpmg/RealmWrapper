@@ -44,7 +44,7 @@ user.name = "Kevin"
 
 let realm = try! Realm(configuration: Realm.Configuration(fileURL: URL(fileURLWithPath: RLMRealmPathForFile("user.realm")), schemaVersion: 1, objectTypes: [User.self]))
 try! realm.write {
-realm.add(user)
+    realm.add(user)
 }
 ```
 
