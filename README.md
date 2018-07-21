@@ -36,15 +36,6 @@ class User: Object {
 }
 ```
 
-> Using RealmWrapper
-```swift
-var user = User()
-user.id = UUID().uuidString
-user.name = "Kevin"
-
-UserRealmProxy().append(user)
-```
-
 > Using RealmSwift
 ```swift
 var user = User()
@@ -53,8 +44,17 @@ user.name = "Kevin"
 
 let realm = try! Realm(configuration: Realm.Configuration(fileURL: URL(fileURLWithPath: RLMRealmPathForFile("user.realm")), schemaVersion: 1, objectTypes: [User.self]))
 try! realm.write {
-    realm.add(user)
+realm.add(user)
 }
+```
+
+> Using RealmWrapper
+```swift
+var user = User()
+user.id = UUID().uuidString
+user.name = "Kevin"
+
+UserRealmProxy().append(user)
 ```
 
 
