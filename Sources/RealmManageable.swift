@@ -45,8 +45,11 @@ public protocol RealmManageable {
 }
 
 public extension RealmManageable {
+    
+    // MARK: - Constants
+    
     static var queue: DispatchQueue {
-        return DispatchQueue(label: "RealmManager")
+        return DispatchQueue(label: "RealmWrapper")
     }
     
     // MARK: - Properties
@@ -111,10 +114,10 @@ public extension RealmManageable {
         config.shouldCompactOnLaunch = shouldCompactOnLaunch
         config.syncConfiguration = syncConfiguration
         
+        let file = "\(fileName).realm"
         if isUseInMemory {
-            config.inMemoryIdentifier = "inMemory-\(fileName)"
+            config.inMemoryIdentifier = "inMemory-\(file)"
         } else {
-            let file = "\(fileName).realm"
             if let appGroupIdentifier = appGroupIdentifier {
                 config.fileURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)?.appendingPathComponent(file)
             } else {
