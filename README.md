@@ -143,8 +143,6 @@ users.setSection(0)
         self.tableView.deleteRows(at: deletions, with: .fade)
     }
     .registerNotification()
-
-}
 ```
 
 Also, since [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmQuery.swift) is doing weak handling to prevent the retain cycle, you can use closures without worrying about the retain cycle if you pass only self.
