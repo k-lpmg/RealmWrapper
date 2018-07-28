@@ -79,7 +79,7 @@ public extension RealmManageable {
     
     // MARK: - Internal methods
     
-    func clear(dispatchQueue: DispatchQueue = DispatchQueue.main, isSync: Bool = true, completion: (() -> Void)? = nil) {
+    func clear(dispatchQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, completion: (() -> Void)? = nil) {
         transaction(dispatchQueue: dispatchQueue, isSync: isSync, writeHandler: { (realm) in
             realm.deleteAll()
         }) {
