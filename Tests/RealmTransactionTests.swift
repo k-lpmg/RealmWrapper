@@ -1,11 +1,3 @@
-//
-//  RealmTransactionTests.swift
-//  RealmWrapperTests
-//
-//  Created by DongHeeKang on 2018. 7. 28..
-//  Copyright © 2018년 k-lpmg. All rights reserved.
-//
-
 import XCTest
 
 import RealmSwift

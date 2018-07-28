@@ -1,11 +1,3 @@
-//
-//  RealmQuery.swift
-//  RealmWrapper
-//
-//  Created by DongHeeKang on 2018. 6. 10..
-//  Copyright © 2018년 k-lpmg. All rights reserved.
-//
-
 import RealmSwift
 
 public typealias RealmQueryChanged = ([IndexPath]) -> Void

@@ -1,11 +1,3 @@
-//
-//  AddViewController.swift
-//  RealmWrapperExample
-//
-//  Created by DongHeeKang on 2018. 6. 30..
-//  Copyright © 2018년 k-lpmg. All rights reserved.
-//
-
 import UIKit
 
 import RealmSwift
