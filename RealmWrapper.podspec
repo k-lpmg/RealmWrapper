@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RealmWrapper"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "Simple wrapper for RealmSwift"
   s.description  = "This is simple wrapper that wrapper is easy to use transaction synchronous processing and realm notifications."
   s.homepage     = "https://github.com/k-lpmg/RealmWrapper"
@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
   s.ios.source_files  = "Sources/*.swift"
   s.ios.deployment_target = "8.0"
 
-  s.dependency 'RealmSwift', '~> 3.7.1'
+  s.dependency 'RealmSwift'
 end
