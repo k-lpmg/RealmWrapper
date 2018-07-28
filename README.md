@@ -11,13 +11,14 @@ RealmWrapper is wrapper library for [RealmSwift](https://github.com/realm/realm-
 If you use [RealmWrapper](https://github.com/k-lpmg/RealmWrapper), you can easily use UI update through Notification and Transaction processing.
 Also, you do not have to worry about the retain cycle when using self in the Notification block.
 
-- [Comparison](#comparison)
+- [At a Glance](#at-a-glance)
+- [Threading](#threading)
 - [Getting Started](#getting-started)
 - [Installation](#installation) 
 - [Usage](#usage)
 
 
-## Comparison
+## At a Glance
 
 If you use [RealmSwift](https://github.com/realm/realm-cocoa/tree/master/RealmSwift), you have to be careful about try statement and thread processing every transaction.
 However, In [RealmManageable](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmManageable.swift) which manages one realm file, transaction processing is performed using Realm-only DispatchQueue.
@@ -34,14 +35,14 @@ class User: Object {
         return "id"
     }
 }
+
+var user = User()
+user.id = UUID().uuidString
+user.name = "Kevin"
 ```
 
 > Using RealmSwift
 ```swift
-var user = User()
-user.id = UUID().uuidString
-user.name = "Kevin"
-
 let realm = try! Realm(configuration: Realm.Configuration(fileURL: URL(fileURLWithPath: RLMRealmPathForFile("user.realm")), schemaVersion: 1, objectTypes: [User.self]))
 try! realm.write {
     realm.add(user)
@@ -50,11 +51,34 @@ try! realm.write {
 
 > Using RealmWrapper
 ```swift
-var user = User()
-user.id = UUID().uuidString
-user.name = "Kevin"
-
+UserRealmManager.shared.transaction(writeHandler: { (realm) in
+    realm.add(user)
+})
+```
+```swift
 UserRealmProxy().append(user)
+```
+
+
+## Threading
+
+- By default, you can use the transaction function to process a Realm Transaction in MainThread
+```swift
+UserRealmManager.shared.transaction(writeHandler: { (realm) in
+    realm.add(user)
+})
+```
+
+- It can be implemented by a background thread using DispatchQueue and isSync parameters.
+```swift
+UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
+    realm.add(user)
+})
+```
+```swift
+UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "background"), writeHandler: { (realm) in
+    realm.add(user)
+})
 ```
 
 
@@ -89,27 +113,31 @@ final class UserRealmManager: RealmManageable {
 struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
 
     var users: RealmQuery<User> {
-        return query(sortProperty: "name", ordering: .ascending)
+        return query(sortProperty: "date", ordering: .ascending)
     }
 
+    // MARK: Methods
+
     func append(_ user: User) {
-        transaction { (realm) in
+        realmManager().transaction(writeHandler: { (realm) in
             realm.add(user, update: true)
-        }
+        })
     }
 
     func delete(_ user: User) {
-        transaction { (realm) in
+        realmManager().transaction(writeHandler: { (realm) in
             realm.delete(user)
-        }   
+        })
     }
 
-    func updateName(id: String, name: String) {
+    func updateName(id: String, name: String, age: Int) {
         guard let user = userFromId(id) else {return}
-        transaction { (realm) in
+
+        realmManager().transaction(writeHandler: { (realm) in
             user.name = name
+            user.age = age
             realm.add(user, update: true)
-        }
+        })
     }
 
     func userFromId(_ id: String) -> User? {
@@ -168,14 +196,13 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ---------- |
 | `isUseInMemory` | `Bool` | `required` |`Use InMemory Realm` |
+| `fileName` | `Bool` | `required` |`Realm File Name` |
 | `appGroupIdentifier` | `String?` | `nil` |`Value for Realm file directory for App Extension`|
-| `objectTypes` | `[Object.Type]?` | `nil` |`Type of Realm object used in realm file`|
-| `migrationBlock` | `String` | `nil` |`Migration Block`|
 
 
 ## Installation
 
-### CocoaPods (iOS 8+)
+- **CocoaPods (iOS 8+)**
 
 ```ruby
 platform :ios, '8.0'
@@ -186,7 +213,7 @@ pod 'RealmWrapper'
 end
 ```
 
-### Carthage (iOS 8+)
+- **Carthage (iOS 8+)**
 
 ```ruby
 github "k-lpmg/RealmWrapper"
