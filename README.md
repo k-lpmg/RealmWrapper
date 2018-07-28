@@ -55,6 +55,7 @@ UserRealmManager.shared.transaction(writeHandler: { (realm) in
     realm.add(user)
 })
 ```
+
 ```swift
 UserRealmProxy().append(user)
 ```
@@ -75,8 +76,9 @@ UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
     realm.add(user)
 })
 ```
+
 ```swift
-UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "background"), writeHandler: { (realm) in
+UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "background"), isSync: false, writeHandler: { (realm) in
     realm.add(user)
 })
 ```
