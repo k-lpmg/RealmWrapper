@@ -11,6 +11,7 @@
 		6507D60F20E7905900A31564 /* RealmManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507D60B20E7905900A31564 /* RealmManageable.swift */; };
 		6507D61020E7905900A31564 /* RealmProxiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507D60C20E7905900A31564 /* RealmProxiable.swift */; };
 		6507D61120E7905900A31564 /* RealmQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507D60D20E7905900A31564 /* RealmQuery.swift */; };
+		65104391210C330C00A5CF9D /* RealmTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65104390210C330C00A5CF9D /* RealmTransactionTests.swift */; };
 		652783C220E7A5AA00F067B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652783A820E7A5AA00F067B6 /* Assets.xcassets */; };
 		652783C320E7A5AA00F067B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652783A920E7A5AA00F067B6 /* LaunchScreen.storyboard */; };
 		652783C520E7A5AA00F067B6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 652783AD20E7A5AA00F067B6 /* Info.plist */; };
@@ -59,6 +60,7 @@
 		6507D60C20E7905900A31564 /* RealmProxiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmProxiable.swift; sourceTree = "<group>"; };
 		6507D60D20E7905900A31564 /* RealmQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmQuery.swift; sourceTree = "<group>"; };
 		6507D61720E798DA00A31564 /* RealmWrapperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmWrapperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65104390210C330C00A5CF9D /* RealmTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTransactionTests.swift; sourceTree = "<group>"; };
 		652783A820E7A5AA00F067B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		652783AA20E7A5AA00F067B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		652783AD20E7A5AA00F067B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				6551D14420E78A8E004DB378 /* Info.plist */,
 				652F13BB20E7EE7900C138DA /* RealmCRUDTests.swift */,
 				652F13BF20E7EE9800C138DA /* RealmNotificationTests.swift */,
+				65104390210C330C00A5CF9D /* RealmTransactionTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65104391210C330C00A5CF9D /* RealmTransactionTests.swift in Sources */,
 				652F13B120E7EC4600C138DA /* User.swift in Sources */,
 				652F13BC20E7EE7900C138DA /* RealmCRUDTests.swift in Sources */,
 				652F13C020E7EE9800C138DA /* RealmNotificationTests.swift in Sources */,
