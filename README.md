@@ -118,8 +118,6 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
         return query(sortProperty: "date", ordering: .ascending)
     }
 
-    // MARK: Methods
-
     func append(_ user: User) {
         realmManager().transaction(writeHandler: { (realm) in
             realm.add(user, update: true)
