@@ -19,7 +19,8 @@ public extension RealmProxiable {
     }
     
     func query<T: Object>(_ type: T.Type = T.self, filter: String? = nil, sortProperty: String? = nil, ordering: OrderingType = .ascending) -> RealmQuery<T> {
-        var results = realmManager().realm.objects(type)
+        let realm = try! Realm(configuration: realmManager().configuration())
+        var results = realm.objects(type)
         if let filter = filter {
             results = results.filter(filter)
         }
@@ -28,10 +29,6 @@ public extension RealmProxiable {
         }
         
         return RealmQuery(results: results)
-    }
-    
-    func transaction(_ writeHandler: @escaping RealmWriteHandler) {
-        realmManager().transaction(writeHandler: writeHandler)
     }
     
 }

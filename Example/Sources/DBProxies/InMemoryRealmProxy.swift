@@ -19,24 +19,25 @@ struct UserInMemoryRealmProxy<RealmManager: InMemoryRealmManager>: RealmProxiabl
     // MARK: Methods
     
     func append(_ user: User) {
-        transaction { (realm) in
+        realmManager().transaction(writeHandler: { (realm) in
             realm.add(user, update: true)
-        }
+        })
     }
     
     func delete(_ user: User) {
-        transaction { (realm) in
+        realmManager().transaction(writeHandler: { (realm) in
             realm.delete(user)
-        }
+        })
     }
     
     func updateName(id: String, name: String, age: Int) {
         guard let user = userFromId(id) else {return}
-        transaction { (realm) in
+        
+        realmManager().transaction(writeHandler: { (realm) in
             user.name = name
             user.age = age
             realm.add(user, update: true)
-        }
+        })
     }
     
     func userFromId(_ id: String) -> User? {

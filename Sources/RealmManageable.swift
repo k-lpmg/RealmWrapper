@@ -20,8 +20,9 @@ public protocol RealmManageable {
     // MARK: - Constants
     
     static var shared: Self { get }
-    static var queue: DispatchQueue { get }
-
+    static var defaultQueueLabel: String { get }
+    static var defaultQueue: DispatchQueue { get }
+    
     // MARK: - Properties
     
     var deleteRealmIfMigrationNeeded: Bool { get }
@@ -35,12 +36,6 @@ public protocol RealmManageable {
     var migrationBlock: MigrationBlock? { get }
     var syncConfiguration: SyncConfiguration? { get }
     var objectTypes: [Object.Type]? { get }
-    var realm: Realm { get }
-    
-    // MARK: - Methods
-    
-    func clear()
-    func transaction(writeHandler: @escaping RealmWriteHandler)
     
 }
 
@@ -48,8 +43,11 @@ public extension RealmManageable {
     
     // MARK: - Constants
     
-    static var queue: DispatchQueue {
-        return DispatchQueue(label: "RealmWrapper")
+    static var defaultQueueLabel: String {
+        return "RealmManageable"
+    }
+    static var defaultQueue: DispatchQueue {
+        return DispatchQueue(label: Self.defaultQueueLabel)
     }
     
     // MARK: - Properties
@@ -78,33 +76,18 @@ public extension RealmManageable {
     var objectTypes: [Object.Type]? {
         return nil
     }
-    var realm: Realm {
-        return try! Realm(configuration: configuration())
-    }
     
     // MARK: - Internal methods
     
-    func clear() {
-        transaction { (realm) in
+    func clear(dispatchQueue: DispatchQueue = DispatchQueue.main, isSync: Bool = true, completion: (() -> Void)? = nil) {
+        transaction(dispatchQueue: dispatchQueue, isSync: isSync, writeHandler: { (realm) in
             realm.deleteAll()
+        }) {
+            completion?()
         }
     }
     
-    func transaction(writeHandler: @escaping RealmWriteHandler) {
-        perform {
-            do {
-                try self.realm.write {
-                    writeHandler(self.realm)
-                }
-            } catch {
-                print("RealmManager not write to database: \(error)")
-            }
-        }
-    }
-    
-    // MARK: - Private methods
-    
-    private func configuration() -> Realm.Configuration {
+    func configuration() -> Realm.Configuration {
         var config = Realm.Configuration()
         config.schemaVersion = schemaVersion
         config.migrationBlock = migrationBlock
@@ -128,12 +111,35 @@ public extension RealmManageable {
         return config
     }
     
-    private func perform(execution: @escaping () -> Void) {
-        if DispatchQueue.isCurrentQueue(queue: Self.queue) {
-            execution()
+    func transaction(dispatchQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, writeHandler: @escaping RealmWriteHandler, completion: (() -> Void)? = nil) {
+        guard isSync else {
+            dispatchQueue.async {
+                self.perform(realm: try! Realm(configuration: self.configuration()), writeHandler: writeHandler, completion: completion)
+            }
+            return
+        }
+        
+        dispatchQueue.sync {
+            perform(realm: try! Realm(configuration: configuration()), writeHandler: writeHandler, completion: completion)
+        }
+    }
+    
+    // MARK: - Private methods
+    
+    private func perform(realm: Realm, writeHandler: @escaping RealmWriteHandler, completion: (() -> Void)? = nil) {
+        do {
+            try realm.write {
+                writeHandler(realm)
+            }
+        } catch {
+            print("RealmManager not write to database: \(error)")
+        }
+        
+        if Thread.isMainThread {
+            completion?()
         } else {
-            Self.queue.sync {
-                execution()
+            DispatchQueue.main.async {
+                completion?()
             }
         }
     }
