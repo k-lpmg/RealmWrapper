@@ -12,31 +12,32 @@ import RealmSwift
 
 class RealmTransactionTests: XCTestCase {
     
+    let userCount = 100000
+    
     override func setUp() {
         super.setUp()
+        
+        UserRealmManager.shared.clear()
     }
     
     func testDefaultTransaction() {
-        let users = UserInMemoryRealmProxy().users
-        let userCount = 10
-        
-        InMemoryRealmManager.shared.transaction(writeHandler: { (realm) in
-            self.addUser(count: userCount, realm: realm)
+        UserRealmManager.shared.transaction(writeHandler: { (realm) in
+            self.addUser(count: self.userCount, realm: realm)
+            
+            let users = realm.objects(User.self)
+            XCTAssertEqual(users.count, self.userCount)
         })
-        
-        XCTAssertEqual(users.count, userCount)
     }
     
     func testDefaultAsyncTransaction() {
         let expectation = self.expectation(description: "testCreateNotification")
         
-        let users = UserInMemoryRealmProxy().users
-        let userCount = 10
-        
-        InMemoryRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
-            self.addUser(count: userCount, realm: realm)
+        UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
+            self.addUser(count: self.userCount, realm: realm)
+            
+            let users = realm.objects(User.self)
+            XCTAssertEqual(users.count, self.userCount)
         }) {
-            XCTAssertEqual(users.count, userCount)
             expectation.fulfill()
         }
         
@@ -44,26 +45,23 @@ class RealmTransactionTests: XCTestCase {
     }
     
     func testCustomSyncTransaction() {
-        let users = UserInMemoryRealmProxy().users
-        let userCount = 10
-        
-        InMemoryRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "testCustomSyncTransaction"), writeHandler: { (realm) in
-            self.addUser(count: userCount, realm: realm)
+        UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "testCustomSyncTransaction"), writeHandler: { (realm) in
+            self.addUser(count: self.userCount, realm: realm)
+            
+            let users = realm.objects(User.self)
+            XCTAssertEqual(users.count, self.userCount)
         })
-        
-        XCTAssertEqual(users.count, userCount)
     }
     
     func testCustomAsyncTransaction() {
         let expectation = self.expectation(description: "testCreateNotification")
         
-        let users = UserInMemoryRealmProxy().users
-        let userCount = 10
-        
-        InMemoryRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "testCustomAsyncTransaction"), isSync: false, writeHandler: { (realm) in
-            self.addUser(count: userCount, realm: realm)
+        UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "testCustomAsyncTransaction"), isSync: false, writeHandler: { (realm) in
+            self.addUser(count: self.userCount, realm: realm)
+            
+            let users = realm.objects(User.self)
+            XCTAssertEqual(users.count, self.userCount)
         }) {
-            XCTAssertEqual(users.count, userCount)
             expectation.fulfill()
         }
         
