@@ -2,6 +2,7 @@ import RealmSwift
 import Realm.Private
 
 public typealias RealmWriteHandler = (Realm) -> Void
+public typealias RealmCompletionHandler = (Realm?, Error?) -> Void
 
 public enum OrderingType {
     case ascending, descending
@@ -71,15 +72,15 @@ public extension RealmManageable {
     
     // MARK: - Internal methods
     
-    func clear(dispatchQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, completion: (() -> Void)? = nil) {
-        transaction(dispatchQueue: dispatchQueue, isSync: isSync, writeHandler: { (realm) in
+    func clear(writeQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, completion: RealmCompletionHandler? = nil) {
+        transaction(writeQueue: writeQueue, isSync: isSync, writeHandler: { (realm) in
             realm.deleteAll()
-        }) {
-            completion?()
+        }) { (realm, error) in
+            completion?(realm, error)
         }
     }
     
-    func configuration() -> Realm.Configuration {
+    func createConfiguration() -> Realm.Configuration {
         var config = Realm.Configuration()
         config.schemaVersion = schemaVersion
         config.migrationBlock = migrationBlock
@@ -103,22 +104,24 @@ public extension RealmManageable {
         return config
     }
     
-    func transaction(dispatchQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, writeHandler: @escaping RealmWriteHandler, completion: (() -> Void)? = nil) {
+    func transaction(writeQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, writeHandler: @escaping RealmWriteHandler, completionQueue: DispatchQueue = DispatchQueue.main, completion: RealmCompletionHandler? = nil) {
         guard isSync else {
-            dispatchQueue.async {
-                self.perform(realm: try! Realm(configuration: self.configuration()), writeHandler: writeHandler, completion: completion)
+            writeQueue.async {
+                self.perform(writeHandler: writeHandler, completionQueue: completionQueue, completion: completion)
             }
             return
         }
         
-        dispatchQueue.sync {
-            perform(realm: try! Realm(configuration: configuration()), writeHandler: writeHandler, completion: completion)
+        writeQueue.sync {
+            perform(writeHandler: writeHandler, completionQueue: completionQueue, completion: completion)
         }
     }
     
     // MARK: - Private methods
     
-    private func perform(realm: Realm, writeHandler: @escaping RealmWriteHandler, completion: (() -> Void)? = nil) {
+    private func perform(writeHandler: @escaping RealmWriteHandler, completionQueue: DispatchQueue, completion: RealmCompletionHandler?) {
+        let configuration = createConfiguration()
+        let realm = try! Realm(configuration: configuration)
         do {
             try realm.write {
                 writeHandler(realm)
@@ -127,12 +130,9 @@ public extension RealmManageable {
             print("RealmManager not write to database: \(error)")
         }
         
-        if Thread.isMainThread {
-            completion?()
-        } else {
-            DispatchQueue.main.async {
-                completion?()
-            }
+        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
+            realm?.refresh()
+            completion?(realm, error)
         }
     }
     

@@ -26,10 +26,13 @@ class RealmTransactionTests: XCTestCase {
         
         UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
+        }) { (realm, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(realm)
             
-            let users = realm.objects(User.self)
+            let users = realm!.objects(User.self)
             XCTAssertEqual(users.count, self.userCount)
-        }) {
+            
             expectation.fulfill()
         }
         
@@ -37,7 +40,7 @@ class RealmTransactionTests: XCTestCase {
     }
     
     func testCustomSyncTransaction() {
-        UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "testCustomSyncTransaction"), writeHandler: { (realm) in
+        UserRealmManager.shared.transaction(writeQueue: DispatchQueue(label: "testCustomSyncTransaction"), writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
             
             let users = realm.objects(User.self)
@@ -48,12 +51,15 @@ class RealmTransactionTests: XCTestCase {
     func testCustomAsyncTransaction() {
         let expectation = self.expectation(description: "testCreateNotification")
         
-        UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "testCustomAsyncTransaction"), isSync: false, writeHandler: { (realm) in
+        UserRealmManager.shared.transaction(writeQueue: DispatchQueue(label: "testCustomAsyncTransaction"), isSync: false, writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
+        }) { (realm, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(realm)
             
-            let users = realm.objects(User.self)
+            let users = realm!.objects(User.self)
             XCTAssertEqual(users.count, self.userCount)
-        }) {
+            
             expectation.fulfill()
         }
         
