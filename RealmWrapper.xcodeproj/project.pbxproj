@@ -46,6 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6538B582210EEBDE008688B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6551D11220E78A12004DB378 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6507D61620E798DA00A31564;
+			remoteInfo = RealmWrapperExample;
+		};
 		6551D12620E78A12004DB378 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6551D11220E78A12004DB378 /* Project object */;
@@ -321,6 +328,7 @@
 			);
 			dependencies = (
 				6551D12720E78A12004DB378 /* PBXTargetDependency */,
+				6538B583210EEBDE008688B9 /* PBXTargetDependency */,
 			);
 			name = RealmWrapperTests;
 			productName = RealmWrapperTests;
@@ -482,6 +490,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6538B583210EEBDE008688B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6507D61620E798DA00A31564 /* RealmWrapperExample */;
+			targetProxy = 6538B582210EEBDE008688B9 /* PBXContainerItemProxy */;
+		};
 		6551D12720E78A12004DB378 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6551D11A20E78A12004DB378 /* RealmWrapper */;
@@ -518,7 +531,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "k-lpmg.RealmWrapperExample";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.k-lpmg.RealmWrapperExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -543,7 +556,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "k-lpmg.RealmWrapperExample";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.k-lpmg.RealmWrapperExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -693,7 +706,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "k-lpmg.RealmWrapper";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.k-lpmg.RealmWrapper";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -724,7 +737,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "k-lpmg.RealmWrapper";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.k-lpmg.RealmWrapper";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
