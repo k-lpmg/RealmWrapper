@@ -13,8 +13,6 @@ public protocol RealmManageable {
     // MARK: - Constants
     
     static var shared: Self { get }
-    static var defaultQueueLabel: String { get }
-    static var defaultQueue: DispatchQueue { get }
     
     // MARK: - Properties
     
@@ -36,11 +34,9 @@ public extension RealmManageable {
     
     // MARK: - Constants
     
-    static var defaultQueueLabel: String {
-        return "RealmManageable"
-    }
     static var defaultQueue: DispatchQueue {
-        return DispatchQueue(label: Self.defaultQueueLabel)
+        let label = "com.k-lpmg.RealmWrapper.RealmManageable.defaultQueue"
+        return DispatchQueue(label: label)
     }
     
     // MARK: - Properties
