@@ -78,9 +78,18 @@ UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
 ```
 
 ```swift
-UserRealmManager.shared.transaction(dispatchQueue: DispatchQueue(label: "background"), isSync: false, writeHandler: { (realm) in
+UserRealmManager.shared.transaction(writeQueue: DispatchQueue(label: "background"), isSync: false, writeHandler: { (realm) in
     realm.add(user)
 })
+```
+
+- You can add completion closure.
+```swift
+UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
+    realm.add(user)
+}) { (realm, error) in
+    self.tableView.reloadData()
+}
 ```
 
 
