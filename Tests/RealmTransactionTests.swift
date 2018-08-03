@@ -9,11 +9,11 @@ class RealmTransactionTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        UserRealmManager.shared.clear()
+        UserRealmManager().clear()
     }
     
     func testDefaultTransaction() {
-        UserRealmManager.shared.transaction(writeHandler: { (realm) in
+        UserRealmManager().transaction(writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
             
             let users = realm.objects(User.self)
@@ -24,7 +24,7 @@ class RealmTransactionTests: XCTestCase {
     func testDefaultAsyncTransaction() {
         let expectation = self.expectation(description: "testCreateNotification")
         
-        UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
+        UserRealmManager().transaction(isSync: false, writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
         }) { (realm, error) in
             XCTAssertNil(error)
@@ -40,7 +40,7 @@ class RealmTransactionTests: XCTestCase {
     }
     
     func testCustomSyncTransaction() {
-        UserRealmManager.shared.transaction(writeQueue: DispatchQueue(label: "testCustomSyncTransaction"), writeHandler: { (realm) in
+        UserRealmManager().transaction(writeQueue: DispatchQueue(label: "testCustomSyncTransaction"), writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
             
             let users = realm.objects(User.self)
@@ -51,7 +51,7 @@ class RealmTransactionTests: XCTestCase {
     func testCustomAsyncTransaction() {
         let expectation = self.expectation(description: "testCreateNotification")
         
-        UserRealmManager.shared.transaction(writeQueue: DispatchQueue(label: "testCustomAsyncTransaction"), isSync: false, writeHandler: { (realm) in
+        UserRealmManager().transaction(writeQueue: DispatchQueue(label: "testCustomAsyncTransaction"), isSync: false, writeHandler: { (realm) in
             self.addUser(count: self.userCount, realm: realm)
         }) { (realm, error) in
             XCTAssertNil(error)
