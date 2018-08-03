@@ -209,6 +209,21 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 | `appGroupIdentifier` | `String?` | `nil` |`Value for Realm file directory for App Extension`|
 
 
+## Example
+
+1. run carthage update
+```console
+$ carthage update --platform iOS
+```
+
+2.  open RealmWrapper.xcodeproj
+```console
+$ open RealmWrapper.xcodeproj
+```
+
+3. run RealmWrapperExample
+
+
 ## Installation
 
 - **CocoaPods (iOS 8+)**
