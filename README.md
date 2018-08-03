@@ -51,7 +51,7 @@ try! realm.write {
 
 > Using RealmWrapper
 ```swift
-UserRealmManager.shared.transaction(writeHandler: { (realm) in
+UserRealmManager().transaction(writeHandler: { (realm) in
     realm.add(user)
 })
 ```
@@ -65,27 +65,27 @@ UserRealmProxy().append(user)
 
 - By default, you can use the transaction function to process a Realm Transaction in MainThread
 ```swift
-UserRealmManager.shared.transaction(writeHandler: { (realm) in
+UserRealmManager().transaction(writeHandler: { (realm) in
     realm.add(user)
 })
 ```
 
 - It can be implemented by a background thread using DispatchQueue and isSync parameters.
 ```swift
-UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
+UserRealmManager().transaction(isSync: false, writeHandler: { (realm) in
     realm.add(user)
 })
 ```
 
 ```swift
-UserRealmManager.shared.transaction(writeQueue: DispatchQueue(label: "background"), isSync: false, writeHandler: { (realm) in
+UserRealmManager().transaction(writeQueue: DispatchQueue(label: "background"), isSync: false, writeHandler: { (realm) in
     realm.add(user)
 })
 ```
 
 - You can add completion closure.
 ```swift
-UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
+UserRealmManager().transaction(isSync: false, writeHandler: { (realm) in
     realm.add(user)
 }) { (realm, error) in
     self.tableView.reloadData()
@@ -99,8 +99,6 @@ UserRealmManager.shared.transaction(isSync: false, writeHandler: { (realm) in
 
 ```swift
 final class UserRealmManager: RealmManageable {
-
-    static var shared: UserRealmManager = UserRealmManager()
 
     var isUseInMemory: Bool {
         return false
@@ -128,13 +126,13 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     }
 
     func append(_ user: User) {
-        realmManager().transaction(writeHandler: { (realm) in
+        rm.transaction(writeHandler: { (realm) in
             realm.add(user, update: true)
         })
     }
 
     func delete(_ user: User) {
-        realmManager().transaction(writeHandler: { (realm) in
+        rm.transaction(writeHandler: { (realm) in
             realm.delete(user)
         })
     }
@@ -142,7 +140,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     func updateName(id: String, name: String, age: Int) {
         guard let user = userFromId(id) else {return}
 
-        realmManager().transaction(writeHandler: { (realm) in
+        rm.transaction(writeHandler: { (realm) in
             user.name = name
             user.age = age
             realm.add(user, update: true)
