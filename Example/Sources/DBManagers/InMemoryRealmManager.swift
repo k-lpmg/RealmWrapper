@@ -3,8 +3,6 @@ import RealmWrapper
 
 final class InMemoryRealmManager: RealmManageable {
     
-    static var shared: InMemoryRealmManager = InMemoryRealmManager()
-    
     var isUseInMemory: Bool {
         return true
     }
