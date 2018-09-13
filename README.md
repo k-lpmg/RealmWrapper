@@ -162,7 +162,7 @@ UserRealmProxy().delete(user)
 UserRealmProxy().updateName(id: user.id, name: "Kris")
 ```
 
-3. If you want to register the notification of the status of the Realm object in the controller, you can register the notification in [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmQuery.swift).
+3. If you want to register the notification of the status of the Realm object in the controller, you can register the notification in [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmWrapper/RealmQuery.swift).
 
 ```swift
 let users: RealmQuery<User> = UserRealmProxy().users
@@ -180,7 +180,7 @@ users.setSection(0)
     .registerNotification()
 ```
 
-Also, since [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmQuery.swift) is doing weak handling to prevent the retain cycle, you can use closures without worrying about the retain cycle if you pass only self.
+Also, since [RealmQuery](https://github.com/k-lpmg/RealmWrapper/blob/master/Sources/RealmWrapper/RealmQuery.swift) is doing weak handling to prevent the retain cycle, you can use closures without worrying about the retain cycle if you pass only self.
 
 ```swift
 
