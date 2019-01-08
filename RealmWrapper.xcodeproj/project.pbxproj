@@ -211,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				65104392210C430B00A5CF9D /* README.md */,
+				656201F621225796000E209D /* Info.plist */,
+				656201F821225796000E209D /* RealmWrapper.h */,
 				6551D13520E78A87004DB378 /* Sources */,
 				652783A620E7A5AA00F067B6 /* Example */,
 				6551D14220E78A8E004DB378 /* Tests */,
@@ -232,8 +234,6 @@
 		6551D13520E78A87004DB378 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				656201F621225796000E209D /* Info.plist */,
-				656201F821225796000E209D /* RealmWrapper.h */,
 				65F564B221E4ED7100C4860F /* RealmWrapper */,
 			);
 			path = Sources;
@@ -700,7 +700,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -733,7 +733,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
