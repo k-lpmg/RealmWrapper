@@ -42,7 +42,7 @@ final class TableViewController: UITableViewController {
     
     private func setProperties() {
         tableView.estimatedSectionHeaderHeight = 20
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.registerWithCellReuseIdentifier(UserTableViewCell.self)
         
         refreshControl = UIRefreshControl()
@@ -157,11 +157,11 @@ extension TableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard indexPath.section == 0 else {
             UserInMemoryRealmProxy().delete(getUserFrom(indexPath: indexPath))
             return

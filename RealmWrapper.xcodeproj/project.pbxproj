@@ -35,10 +35,10 @@
 		652F13C020E7EE9800C138DA /* RealmNotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F13BF20E7EE9800C138DA /* RealmNotificationTests.swift */; };
 		6551D12520E78A12004DB378 /* RealmWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6551D11B20E78A12004DB378 /* RealmWrapper.framework */; };
 		6551D14A20E78D55004DB378 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6551D14920E78D55004DB378 /* RealmSwift.framework */; };
-		656201F921225796000E209D /* RealmQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656201F421225796000E209D /* RealmQuery.swift */; };
-		656201FA21225796000E209D /* RealmManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656201F521225796000E209D /* RealmManageable.swift */; };
-		656201FC21225796000E209D /* RealmProxiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656201F721225796000E209D /* RealmProxiable.swift */; };
 		656201FD21225796000E209D /* RealmWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 656201F821225796000E209D /* RealmWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65F564B621E4ED7100C4860F /* RealmQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B321E4ED7100C4860F /* RealmQuery.swift */; };
+		65F564B721E4ED7100C4860F /* RealmManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B421E4ED7100C4860F /* RealmManageable.swift */; };
+		65F564B821E4ED7100C4860F /* RealmProxiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B521E4ED7100C4860F /* RealmProxiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,11 +84,11 @@
 		6551D12420E78A12004DB378 /* RealmWrapperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmWrapperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6551D14420E78A8E004DB378 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6551D14920E78D55004DB378 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		656201F421225796000E209D /* RealmQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmQuery.swift; path = RealmWrapper/RealmQuery.swift; sourceTree = "<group>"; };
-		656201F521225796000E209D /* RealmManageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmManageable.swift; path = RealmWrapper/RealmManageable.swift; sourceTree = "<group>"; };
-		656201F621225796000E209D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RealmWrapper/Info.plist; sourceTree = "<group>"; };
-		656201F721225796000E209D /* RealmProxiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmProxiable.swift; path = RealmWrapper/RealmProxiable.swift; sourceTree = "<group>"; };
-		656201F821225796000E209D /* RealmWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RealmWrapper.h; path = RealmWrapper/RealmWrapper.h; sourceTree = "<group>"; };
+		656201F621225796000E209D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		656201F821225796000E209D /* RealmWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmWrapper.h; sourceTree = "<group>"; };
+		65F564B321E4ED7100C4860F /* RealmQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmQuery.swift; sourceTree = "<group>"; };
+		65F564B421E4ED7100C4860F /* RealmManageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManageable.swift; sourceTree = "<group>"; };
+		65F564B521E4ED7100C4860F /* RealmProxiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmProxiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,11 +232,9 @@
 		6551D13520E78A87004DB378 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				656201F821225796000E209D /* RealmWrapper.h */,
 				656201F621225796000E209D /* Info.plist */,
-				656201F521225796000E209D /* RealmManageable.swift */,
-				656201F721225796000E209D /* RealmProxiable.swift */,
-				656201F421225796000E209D /* RealmQuery.swift */,
+				656201F821225796000E209D /* RealmWrapper.h */,
+				65F564B221E4ED7100C4860F /* RealmWrapper */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -259,6 +257,16 @@
 				6551D14920E78D55004DB378 /* RealmSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65F564B221E4ED7100C4860F /* RealmWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				65F564B321E4ED7100C4860F /* RealmQuery.swift */,
+				65F564B421E4ED7100C4860F /* RealmManageable.swift */,
+				65F564B521E4ED7100C4860F /* RealmProxiable.swift */,
+			);
+			path = RealmWrapper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,9 +467,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				656201FA21225796000E209D /* RealmManageable.swift in Sources */,
-				656201F921225796000E209D /* RealmQuery.swift in Sources */,
-				656201FC21225796000E209D /* RealmProxiable.swift in Sources */,
+				65F564B721E4ED7100C4860F /* RealmManageable.swift in Sources */,
+				65F564B621E4ED7100C4860F /* RealmQuery.swift in Sources */,
+				65F564B821E4ED7100C4860F /* RealmProxiable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,7 +535,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.k-lpmg.RealmWrapperExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -552,7 +560,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.k-lpmg.RealmWrapperExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -692,7 +700,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/RealmWrapper/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -705,7 +713,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -725,7 +733,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/RealmWrapper/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -737,7 +745,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -762,7 +770,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "k-lpmg.RealmWrapperTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -787,7 +795,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "k-lpmg.RealmWrapperTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -15,7 +15,7 @@ class UserTableViewCell: UITableViewCell {
     
     // MARK: - Con(De)structor
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     }
     
