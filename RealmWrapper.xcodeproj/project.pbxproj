@@ -14,7 +14,7 @@
 		652783C320E7A5AA00F067B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652783A920E7A5AA00F067B6 /* LaunchScreen.storyboard */; };
 		652783CE20E7A5AA00F067B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783BB20E7A5AA00F067B6 /* AppDelegate.swift */; };
 		652783DB20E7A6EB00F067B6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783DA20E7A6EB00F067B6 /* TableViewController.swift */; };
-		652783DD20E7A6F400F067B6 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783DC20E7A6F400F067B6 /* AddViewController.swift */; };
+		652783DD20E7A6F400F067B6 /* SingleAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783DC20E7A6F400F067B6 /* SingleAddViewController.swift */; };
 		652783DF20E7A6FB00F067B6 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783DE20E7A6FB00F067B6 /* EditViewController.swift */; };
 		652783E820E7A8FA00F067B6 /* ClassName-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783E720E7A8FA00F067B6 /* ClassName-Extension.swift */; };
 		652783EA20E7A90400F067B6 /* UITableView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652783E920E7A90400F067B6 /* UITableView-Extension.swift */; };
@@ -36,6 +36,8 @@
 		6551D12520E78A12004DB378 /* RealmWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6551D11B20E78A12004DB378 /* RealmWrapper.framework */; };
 		6551D14A20E78D55004DB378 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6551D14920E78D55004DB378 /* RealmSwift.framework */; };
 		656201FD21225796000E209D /* RealmWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 656201F821225796000E209D /* RealmWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65E54905221D462800074FAD /* MultipleAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E54904221D462800074FAD /* MultipleAddViewController.swift */; };
+		65E54907221D465900074FAD /* UIViewController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E54906221D465900074FAD /* UIViewController-Extension.swift */; };
 		65F564B621E4ED7100C4860F /* RealmQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B321E4ED7100C4860F /* RealmQuery.swift */; };
 		65F564B721E4ED7100C4860F /* RealmManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B421E4ED7100C4860F /* RealmManageable.swift */; };
 		65F564B821E4ED7100C4860F /* RealmProxiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B521E4ED7100C4860F /* RealmProxiable.swift */; };
@@ -68,7 +70,7 @@
 		652783AD20E7A5AA00F067B6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		652783BB20E7A5AA00F067B6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		652783DA20E7A6EB00F067B6 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		652783DC20E7A6F400F067B6 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		652783DC20E7A6F400F067B6 /* SingleAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAddViewController.swift; sourceTree = "<group>"; };
 		652783DE20E7A6FB00F067B6 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		652783E020E7A71600F067B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		652783E720E7A8FA00F067B6 /* ClassName-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClassName-Extension.swift"; sourceTree = "<group>"; };
@@ -86,6 +88,8 @@
 		6551D14920E78D55004DB378 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		656201F621225796000E209D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		656201F821225796000E209D /* RealmWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmWrapper.h; sourceTree = "<group>"; };
+		65E54904221D462800074FAD /* MultipleAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAddViewController.swift; sourceTree = "<group>"; };
+		65E54906221D465900074FAD /* UIViewController-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController-Extension.swift"; sourceTree = "<group>"; };
 		65F564B321E4ED7100C4860F /* RealmQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmQuery.swift; sourceTree = "<group>"; };
 		65F564B421E4ED7100C4860F /* RealmManageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManageable.swift; sourceTree = "<group>"; };
 		65F564B521E4ED7100C4860F /* RealmProxiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmProxiable.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 			children = (
 				652783E720E7A8FA00F067B6 /* ClassName-Extension.swift */,
 				652783E920E7A90400F067B6 /* UITableView-Extension.swift */,
+				65E54906221D465900074FAD /* UIViewController-Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -200,9 +205,10 @@
 		652783D920E7A6C500F067B6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				652783DA20E7A6EB00F067B6 /* TableViewController.swift */,
-				652783DC20E7A6F400F067B6 /* AddViewController.swift */,
 				652783DE20E7A6FB00F067B6 /* EditViewController.swift */,
+				65E54904221D462800074FAD /* MultipleAddViewController.swift */,
+				652783DC20E7A6F400F067B6 /* SingleAddViewController.swift */,
+				652783DA20E7A6EB00F067B6 /* TableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -456,10 +462,12 @@
 				652783EC20E7A93000F067B6 /* InMemoryRealmManager.swift in Sources */,
 				652783CE20E7A5AA00F067B6 /* AppDelegate.swift in Sources */,
 				652783EE20E7A93900F067B6 /* UserRealmManager.swift in Sources */,
+				65E54907221D465900074FAD /* UIViewController-Extension.swift in Sources */,
+				65E54905221D462800074FAD /* MultipleAddViewController.swift in Sources */,
 				652F13B620E7EE1B00C138DA /* User.swift in Sources */,
 				652783E820E7A8FA00F067B6 /* ClassName-Extension.swift in Sources */,
 				652783DB20E7A6EB00F067B6 /* TableViewController.swift in Sources */,
-				652783DD20E7A6F400F067B6 /* AddViewController.swift in Sources */,
+				652783DD20E7A6F400F067B6 /* SingleAddViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
