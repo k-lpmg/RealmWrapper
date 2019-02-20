@@ -38,6 +38,7 @@
 		656201FD21225796000E209D /* RealmWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 656201F821225796000E209D /* RealmWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65E54905221D462800074FAD /* MultipleAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E54904221D462800074FAD /* MultipleAddViewController.swift */; };
 		65E54907221D465900074FAD /* UIViewController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E54906221D465900074FAD /* UIViewController-Extension.swift */; };
+		65E54912221D611700074FAD /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E54911221D611700074FAD /* AppNavigator.swift */; };
 		65F564B621E4ED7100C4860F /* RealmQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B321E4ED7100C4860F /* RealmQuery.swift */; };
 		65F564B721E4ED7100C4860F /* RealmManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B421E4ED7100C4860F /* RealmManageable.swift */; };
 		65F564B821E4ED7100C4860F /* RealmProxiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F564B521E4ED7100C4860F /* RealmProxiable.swift */; };
@@ -90,6 +91,7 @@
 		656201F821225796000E209D /* RealmWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmWrapper.h; sourceTree = "<group>"; };
 		65E54904221D462800074FAD /* MultipleAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAddViewController.swift; sourceTree = "<group>"; };
 		65E54906221D465900074FAD /* UIViewController-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController-Extension.swift"; sourceTree = "<group>"; };
+		65E54911221D611700074FAD /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
 		65F564B321E4ED7100C4860F /* RealmQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmQuery.swift; sourceTree = "<group>"; };
 		65F564B421E4ED7100C4860F /* RealmManageable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManageable.swift; sourceTree = "<group>"; };
 		65F564B521E4ED7100C4860F /* RealmProxiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmProxiable.swift; sourceTree = "<group>"; };
@@ -148,9 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				652783BB20E7A5AA00F067B6 /* AppDelegate.swift */,
+				65E54911221D611700074FAD /* AppNavigator.swift */,
 				652783D320E7A64D00F067B6 /* Cells */,
-				652783D420E7A65400F067B6 /* DBManagers */,
-				652783D520E7A65800F067B6 /* DBProxies */,
+				65E5490B221D604500074FAD /* DB */,
 				652783D620E7A65D00F067B6 /* Extension */,
 				652783D820E7A6AF00F067B6 /* Models */,
 				652783D920E7A6C500F067B6 /* ViewControllers */,
@@ -164,24 +166,6 @@
 				652783EF20E7A95500F067B6 /* UserTableViewCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		652783D420E7A65400F067B6 /* DBManagers */ = {
-			isa = PBXGroup;
-			children = (
-				652783EB20E7A93000F067B6 /* InMemoryRealmManager.swift */,
-				652783ED20E7A93900F067B6 /* UserRealmManager.swift */,
-			);
-			path = DBManagers;
-			sourceTree = "<group>";
-		};
-		652783D520E7A65800F067B6 /* DBProxies */ = {
-			isa = PBXGroup;
-			children = (
-				652783F120E7A9BC00F067B6 /* InMemoryRealmProxy.swift */,
-				652783F320E7A9CC00F067B6 /* UserRealmProxy.swift */,
-			);
-			path = DBProxies;
 			sourceTree = "<group>";
 		};
 		652783D620E7A65D00F067B6 /* Extension */ = {
@@ -263,6 +247,33 @@
 				6551D14920E78D55004DB378 /* RealmSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65E5490B221D604500074FAD /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				65E5490C221D604C00074FAD /* Managers */,
+				65E5490D221D605300074FAD /* Proxies */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		65E5490C221D604C00074FAD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				652783EB20E7A93000F067B6 /* InMemoryRealmManager.swift */,
+				652783ED20E7A93900F067B6 /* UserRealmManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		65E5490D221D605300074FAD /* Proxies */ = {
+			isa = PBXGroup;
+			children = (
+				652783F120E7A9BC00F067B6 /* InMemoryRealmProxy.swift */,
+				652783F320E7A9CC00F067B6 /* UserRealmProxy.swift */,
+			);
+			path = Proxies;
 			sourceTree = "<group>";
 		};
 		65F564B221E4ED7100C4860F /* RealmWrapper */ = {
@@ -465,6 +476,7 @@
 				65E54907221D465900074FAD /* UIViewController-Extension.swift in Sources */,
 				65E54905221D462800074FAD /* MultipleAddViewController.swift in Sources */,
 				652F13B620E7EE1B00C138DA /* User.swift in Sources */,
+				65E54912221D611700074FAD /* AppNavigator.swift in Sources */,
 				652783E820E7A8FA00F067B6 /* ClassName-Extension.swift in Sources */,
 				652783DB20E7A6EB00F067B6 /* TableViewController.swift in Sources */,
 				652783DD20E7A6F400F067B6 /* SingleAddViewController.swift in Sources */,
