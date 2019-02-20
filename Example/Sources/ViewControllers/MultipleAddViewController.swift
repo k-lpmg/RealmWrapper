@@ -105,25 +105,25 @@ final class MultipleAddViewController: UIViewController {
     @objc private func saveButtonDidClicked() {
         guard let text = countTextField.text, let count = Int(text) else {return}
         
+        let useInMemory = useInMemorySwitch.isOn
+        let useSync = useSyncSwitch.isOn
+        
         DispatchQueue.global().async {
             var users = [User]()
             (0...count).forEach({ (i) in
                 let user = User(name: "\(i)", age: i)
                 users.append(user)
+                
+                print("Appended users count : \(users.count)")
             })
             
-            DispatchQueue.main.async {
-                if self.useInMemorySwitch.isOn {
-                    UserInMemoryRealmProxy().append(users, isSync: self.useSyncSwitch.isOn, completion: {
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                } else {
-                    UserRealmProxy().append(users, isSync: self.useSyncSwitch.isOn, completion: {
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                }
+            if useInMemory {
+                UserInMemoryRealmProxy().append(users, isSync: useSync)
+            } else {
+                UserRealmProxy().append(users, isSync: useSync)
             }
         }
+        navigationController?.popViewController(animated: true)
     }
     
 }
