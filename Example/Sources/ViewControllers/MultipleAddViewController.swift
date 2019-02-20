@@ -79,7 +79,7 @@ final class MultipleAddViewController: UIViewController {
     // MARK: - Private methods
     
     private func setNavigation() {
-        title = "Add Multiple User"
+        title = "Add multiple user"
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }

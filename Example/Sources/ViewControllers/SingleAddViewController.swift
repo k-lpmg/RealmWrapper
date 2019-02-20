@@ -89,7 +89,7 @@ final class SingleAddViewController: UIViewController {
     // MARK: - Private methods
     
     private func setNavigation() {
-        title = "Add Single User"
+        title = "Add single user"
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }

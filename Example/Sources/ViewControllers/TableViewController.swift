@@ -82,21 +82,21 @@ final class TableViewController: UITableViewController {
     // MARk: - Private selector
     
     @objc private func settingButtonItemClicked() {
-        let editAction = UIAlertAction(title: "Edit", style: .default) { [unowned self] (_) in
+        let editOnAction = UIAlertAction(title: "edit on", style: .default) { [unowned self] (_) in
             self.tableView.isEditing = true
         }
-        let editDoneAction = UIAlertAction(title: "Edit Done", style: .default) { [unowned self] (_) in
+        let editOffAction = UIAlertAction(title: "edit off", style: .default) { [unowned self] (_) in
             self.tableView.isEditing = false
         }
-        let userRealmClearAction = UIAlertAction(title: "User Realm Clear", style: .default) { (_) in
+        let userRealmClearAction = UIAlertAction(title: "clear user realm", style: .default) { (_) in
             UserRealmManager().clear(isSync: false)
         }
-        let inMemoryRealmClear = UIAlertAction(title: "InMemory Realm Clear", style: .default) { (_) in
+        let inMemoryRealmClear = UIAlertAction(title: "clear inMemory realm", style: .default) { (_) in
             InMemoryRealmManager().clear(isSync: false)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
         var actions = [UIAlertAction]()
-        actions.append(tableView.isEditing ? editDoneAction : editAction)
+        actions.append(tableView.isEditing ? editOffAction : editOnAction)
         actions.append(userRealmClearAction)
         actions.append(inMemoryRealmClear)
         actions.append(cancelAction)
@@ -104,13 +104,13 @@ final class TableViewController: UITableViewController {
     }
     
     @objc private func addButtonItemClicked() {
-        let singleAddAction = UIAlertAction(title: "Single Add", style: .default) { [unowned self] (_) in
+        let singleAddAction = UIAlertAction(title: "single add", style: .default) { [unowned self] (_) in
             self.navigationController?.pushViewController(SingleAddViewController(), animated: true)
         }
-        let multipleAddAction = UIAlertAction(title: "Multiple Add", style: .default) { [unowned self] (_) in
+        let multipleAddAction = UIAlertAction(title: "multiple add", style: .default) { [unowned self] (_) in
             self.navigationController?.pushViewController(MultipleAddViewController(), animated: true)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
         alert(preferredStyle: .actionSheet, actions: [singleAddAction, multipleAddAction, cancelAction])
     }
     
@@ -156,7 +156,7 @@ extension TableViewController {
             label.font = UIFont.systemFont(ofSize: 17)
             return label
         }()
-        label.text = section == 0 ? "Users" : "InMemory"
+        label.text = section == 0 ? "user realm" : "inMemory realm"
         headerView.addSubview(label)
         label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16).isActive = true
         label.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 4).isActive = true
