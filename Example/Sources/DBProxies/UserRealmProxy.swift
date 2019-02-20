@@ -16,6 +16,14 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
         })
     }
     
+    func append(_ users: [User], isSync: Bool, completion: (() -> Void)? = nil) {
+        rm.transaction(isSync: isSync, writeHandler: { (realm) in
+            realm.add(users, update: true)
+        }) { (realm, error) in
+            completion?()
+        }
+    }
+    
     func delete(_ user: User) {
         rm.transaction(writeHandler: { (realm) in
             realm.delete(user)
