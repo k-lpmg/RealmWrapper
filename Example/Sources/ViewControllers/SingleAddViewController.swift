@@ -3,7 +3,7 @@ import UIKit
 import RealmSwift
 import RealmWrapper
 
-final class AddViewController: UIViewController {
+final class SingleAddViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -40,6 +40,9 @@ final class AddViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Please enter user's name."
+        textField.textAlignment = .right
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.borderWidth = 0.5
         return textField
     }()
     private let ageLabel: UILabel = {
@@ -54,6 +57,9 @@ final class AddViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Please enter user's age."
         textField.keyboardType = .numberPad
+        textField.textAlignment = .right
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.borderWidth = 0.5
         return textField
     }()
     
@@ -83,7 +89,7 @@ final class AddViewController: UIViewController {
     // MARK: - Private methods
     
     private func setNavigation() {
-        title = "Add User"
+        title = "Add single user"
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
@@ -129,31 +135,33 @@ final class AddViewController: UIViewController {
 
 // MARK: - Layout
 
-extension AddViewController {
+extension SingleAddViewController {
     
     private func layout() {
-        useInMemoryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
+        useInMemoryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         useInMemoryLabel.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 32).isActive = true
         useInMemoryLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         useInMemorySwitch.topAnchor.constraint(equalTo: useInMemoryLabel.topAnchor).isActive = true
-        useInMemorySwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
+        useInMemorySwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         nameLabel.topAnchor.constraint(equalTo: useInMemoryLabel.bottomAnchor, constant: 32).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
-        nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 16).isActive = true
+        nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 8).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
+        nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        nameTextField.heightAnchor.constraint(equalToConstant: 32).isActive = true
         
-        ageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
+        ageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         ageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 32).isActive = true
         ageLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
-        ageTextField.leadingAnchor.constraint(equalTo: ageLabel.trailingAnchor, constant: 16).isActive = true
+        ageTextField.leadingAnchor.constraint(equalTo: ageLabel.trailingAnchor, constant: 8).isActive = true
         ageTextField.topAnchor.constraint(equalTo: ageLabel.topAnchor).isActive = true
-        ageTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
+        ageTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        ageTextField.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
     
 }

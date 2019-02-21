@@ -1,5 +1,6 @@
 import UIKit
 
+import RealmSwift
 import RealmWrapper
 
 final class TableViewController: UITableViewController {
@@ -9,17 +10,16 @@ final class TableViewController: UITableViewController {
     private lazy var users: RealmQuery<User> = UserRealmProxy().users
     private lazy var usersInMemory: RealmQuery<User> = UserInMemoryRealmProxy().users
     
+    private lazy var menuButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(settingButtonItemClicked))
+        return buttonItem
+    }()
     private lazy var addButtonItem: UIBarButtonItem = {
         let buttonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonItemClicked))
         return buttonItem
     }()
     
     // MARK: - Overridden: UITableViewController
-    
-    override var editButtonItem: UIBarButtonItem {
-        let buttonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonItemClicked))
-        return buttonItem
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ final class TableViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
             title = "People List"
         }
-        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem = menuButtonItem
         navigationItem.rightBarButtonItem = addButtonItem
     }
     
@@ -81,20 +81,37 @@ final class TableViewController: UITableViewController {
     
     // MARk: - Private selector
     
-    @objc private func addButtonItemClicked() {
-        let controller = AddViewController()
-        navigationController?.pushViewController(controller, animated: true)
+    @objc private func settingButtonItemClicked() {
+        let editOnAction = UIAlertAction(title: "edit on", style: .default) { [unowned self] (_) in
+            self.tableView.isEditing = true
+        }
+        let editOffAction = UIAlertAction(title: "edit off", style: .default) { [unowned self] (_) in
+            self.tableView.isEditing = false
+        }
+        let userRealmClearAction = UIAlertAction(title: "clear user realm", style: .default) { (_) in
+            UserRealmManager().clear(isSync: false)
+        }
+        let inMemoryRealmClear = UIAlertAction(title: "clear inMemory realm", style: .default) { (_) in
+            InMemoryRealmManager().clear(isSync: false)
+        }
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
+        var actions = [UIAlertAction]()
+        actions.append(tableView.isEditing ? editOffAction : editOnAction)
+        actions.append(userRealmClearAction)
+        actions.append(inMemoryRealmClear)
+        actions.append(cancelAction)
+        alert(preferredStyle: .actionSheet, actions: actions)
     }
     
-    @objc private func editButtonItemClicked() {
-        guard tableView.isEditing else {
-            tableView.isEditing = true
-            navigationItem.leftBarButtonItem?.title = "Done"
-            return
+    @objc private func addButtonItemClicked() {
+        let singleAddAction = UIAlertAction(title: "single add", style: .default) { [unowned self] (_) in
+            self.navigationController?.pushViewController(SingleAddViewController(), animated: true)
         }
-        
-        tableView.isEditing = false
-        navigationItem.leftBarButtonItem?.title = "Edit"
+        let multipleAddAction = UIAlertAction(title: "multiple add", style: .default) { [unowned self] (_) in
+            self.navigationController?.pushViewController(MultipleAddViewController(), animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel)
+        alert(preferredStyle: .actionSheet, actions: [singleAddAction, multipleAddAction, cancelAction])
     }
     
     @objc private func handleRefresh() {
@@ -139,7 +156,7 @@ extension TableViewController {
             label.font = UIFont.systemFont(ofSize: 17)
             return label
         }()
-        label.text = section == 0 ? "Users" : "InMemory"
+        label.text = section == 0 ? "user realm" : "inMemory realm"
         headerView.addSubview(label)
         label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16).isActive = true
         label.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 4).isActive = true

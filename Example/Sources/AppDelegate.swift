@@ -7,14 +7,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .white
-        window.makeKeyAndVisible()
-        
-        let controller = TableViewController()
-        let navigationController = UINavigationController(rootViewController: controller)
-        window.rootViewController = navigationController
         self.window = window
         
+        AppNavigator.shared.start(with: window)
         return true
     }
     
