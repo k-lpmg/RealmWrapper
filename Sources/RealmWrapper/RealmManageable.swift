@@ -122,15 +122,15 @@ public extension RealmManageable {
             try realm.write {
                 writeHandler(realm)
             }
+            completion?(realm, nil)
         } catch {
+            completion?(nil, error)
             print("RealmManager not write to database: \(error)")
         }
         
         realm.refresh()
         
-        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
-            completion?(realm, error)
-        }
+        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (_, _) in }
     }
     
 }
