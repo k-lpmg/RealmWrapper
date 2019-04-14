@@ -126,9 +126,8 @@ public extension RealmManageable {
             print("RealmManager not write to database: \(error)")
         }
         
-        realm.refresh()
-        
         Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
+            realm?.refresh()
             completion?(realm, error)
         }
     }
