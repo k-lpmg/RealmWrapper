@@ -6,7 +6,7 @@ env:
     - SCHEME="RealmWrapper"
     - IOS_SDK="iphonesimulator"
   matrix:
-    - SDK="$IOS_SDK" DESTINATION="platform=iOS Simulator,name=iPhone X,OS=12.2"
+    - SDK="$IOS_SDK" DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone X"
 
 before_install:
   - brew update
