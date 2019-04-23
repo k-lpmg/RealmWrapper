@@ -224,7 +224,7 @@ $ open RealmWrapper.xcodeproj
 
 ## Installation
 
-- **CocoaPods (iOS 8+)**
+#### CocoaPods (iOS 8+)
 
 ```ruby
 platform :ios, '8.0'
@@ -235,7 +235,7 @@ target '<Your Target Name>' do
 end
 ```
 
-- **Carthage (iOS 8+)**
+#### Carthage (iOS 8+)
 
 ```ruby
 github "k-lpmg/RealmWrapper"
