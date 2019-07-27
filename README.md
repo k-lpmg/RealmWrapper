@@ -127,7 +127,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
 
     func append(_ user: User) {
         rm.transaction(writeHandler: { (realm) in
-            realm.add(user, update: true)
+            realm.add(user, update: .all)
         })
     }
 
@@ -143,7 +143,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
         rm.transaction(writeHandler: { (realm) in
             user.name = name
             user.age = age
-            realm.add(user, update: true)
+            realm.add(user, update: .all)
         })
     }
 
