@@ -1,6 +1,6 @@
 import RealmWrapper
 
-struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
+struct UserInMemoryRealmProxy<RealmManager: InMemoryRealmManager>: RealmProxiable {
     
     // MARK: - Properties
     
@@ -30,12 +30,6 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
         })
     }
     
-    func deleteAll() {
-        rm.transaction(writeHandler: { (realm) in
-            realm.delete(self.users.results)
-        })
-    }
-    
     func updateName(id: String, name: String, age: Int) {
         guard let user = userFromId(id) else {return}
         
@@ -48,10 +42,6 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     
     func userFromId(_ id: String) -> User? {
         return query(filter: "id == '\(id)'").results.first
-    }
-    
-    func userWithFilter(_ filter: String) -> RealmQuery<User> {
-        return query(filter: filter)
     }
     
 }

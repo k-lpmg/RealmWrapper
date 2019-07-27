@@ -1,30 +1,30 @@
 import RealmWrapper
 
-struct UserInMemoryRealmProxy<RealmManager: InMemoryRealmManager>: RealmProxiable {
+struct MockUserInMemoryRealmProxy<RealmManager: MockInMemoryRealmManager>: RealmProxiable {
     
     // MARK: - Properties
     
-    var users: RealmQuery<User> {
+    var users: RealmQuery<MockUser> {
         return query(sortProperty: "date", ordering: .ascending)
     }
     
     // MARK: Methods
     
-    func append(_ user: User) {
+    func append(_ user: MockUser) {
         rm.transaction(writeHandler: { (realm) in
-            realm.add(user, update: true)
+            realm.add(user, update: .all)
         })
     }
     
-    func append(_ users: [User], isSync: Bool, completion: (() -> Void)? = nil) {
+    func append(_ users: [MockUser], isSync: Bool, completion: (() -> Void)? = nil) {
         rm.transaction(isSync: isSync, writeHandler: { (realm) in
-            realm.add(users, update: true)
+            realm.add(users, update: .all)
         }) { (realm, error) in
             completion?()
         }
     }
     
-    func delete(_ user: User) {
+    func delete(_ user: MockUser) {
         rm.transaction(writeHandler: { (realm) in
             realm.delete(user)
         })
@@ -36,11 +36,11 @@ struct UserInMemoryRealmProxy<RealmManager: InMemoryRealmManager>: RealmProxiabl
         rm.transaction(writeHandler: { (realm) in
             user.name = name
             user.age = age
-            realm.add(user, update: true)
+            realm.add(user, update: .all)
         })
     }
     
-    func userFromId(_ id: String) -> User? {
+    func userFromId(_ id: String) -> MockUser? {
         return query(filter: "id == '\(id)'").results.first
     }
     

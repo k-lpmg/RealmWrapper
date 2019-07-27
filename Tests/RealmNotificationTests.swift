@@ -8,13 +8,13 @@ class RealmNotificationTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        UserRealmProxy().deleteAll()
+        MockUserRealmProxy().deleteAll()
     }
     
     func testCreateNotification() {
         let expectation = self.expectation(description: "testCreateNotification")
         
-        let users = UserRealmProxy().users
+        let users = MockUserRealmProxy().users
         users.addInsertNotificationBlock(self) { (self, insertions) in
             XCTAssertTrue(insertions.count > 0)
             
@@ -22,8 +22,8 @@ class RealmNotificationTests: XCTestCase {
         }
         .registerNotification()
         
-        let user = User(name: "user1", age: 1)
-        UserRealmProxy().append(user)
+        let user = MockUser(name: "user1", age: 1)
+        MockUserRealmProxy().append(user)
         
         waitForExpectations(timeout: 60)
     }
@@ -31,7 +31,7 @@ class RealmNotificationTests: XCTestCase {
     func testUpdateNotification() {
         let expectation = self.expectation(description: "testUpdateNotification")
         
-        let users = UserRealmProxy().users
+        let users = MockUserRealmProxy().users
         users.addModificateNotificationBlock(self) { (self, modifications) in
             XCTAssertTrue(modifications.count > 0)
             
@@ -39,12 +39,12 @@ class RealmNotificationTests: XCTestCase {
         }
         .registerNotification()
         
-        let user = User(name: "user1", age: 1)
+        let user = MockUser(name: "user1", age: 1)
         let userId = user.id
-        UserRealmProxy().append(user)
+        MockUserRealmProxy().append(user)
         
         XCTAssertNotNil(userId)
-        UserRealmProxy().updateName(id: userId!, name: "user2", age: 2)
+        MockUserRealmProxy().updateName(id: userId!, name: "user2", age: 2)
         
         waitForExpectations(timeout: 60)
     }
@@ -52,7 +52,7 @@ class RealmNotificationTests: XCTestCase {
     func testDeleteNotification() {
         let expectation = self.expectation(description: "testDeleteNotification")
         
-        let users = UserRealmProxy().users
+        let users = MockUserRealmProxy().users
         users.addDeleteNotificationBlock(self) { (self, deletions) in
             XCTAssertTrue(deletions.count > 0)
             
@@ -60,10 +60,10 @@ class RealmNotificationTests: XCTestCase {
         }
         .registerNotification()
         
-        let user = User(name: "user2", age: 2)
-        UserRealmProxy().append(user)
+        let user = MockUser(name: "user2", age: 2)
+        MockUserRealmProxy().append(user)
         
-        UserRealmProxy().delete(user)
+        MockUserRealmProxy().delete(user)
         
         waitForExpectations(timeout: 60)
     }
