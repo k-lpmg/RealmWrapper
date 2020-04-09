@@ -117,7 +117,9 @@ public extension RealmManageable {
     
     private func perform(writeHandler: @escaping RealmWriteHandler, completionQueue: DispatchQueue, completion: RealmCompletionHandler?) {
         let configuration = createConfiguration()
-        let realm = try! Realm(configuration: configuration)
+        guard let realm = try? Realm(configuration: configuration) else {
+            fatalError("RealmManager not find to database")
+        }
         do {
             try realm.write {
                 writeHandler(realm)
