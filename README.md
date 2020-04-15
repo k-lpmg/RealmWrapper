@@ -205,6 +205,7 @@ public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, bloc
 | `isUseInMemory` | `Bool` | `required` |`Use InMemory Realm` |
 | `fileName` | `Bool` | `required` |`Realm File Name` |
 | `appGroupIdentifier` | `String?` | `nil` |`Value for Realm file directory for App Extension`|
+| `schemaVersion` | `UInt64` | `required` |`The new schema version` |
 
 
 ## Example
