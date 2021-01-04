@@ -2,7 +2,7 @@ import RealmSwift
 import Realm.Private
 
 public typealias RealmWriteHandler = (Realm) -> Void
-public typealias RealmCompletionHandler = (Realm?, Error?) -> Void
+public typealias RealmCompletionHandler = (Result<Realm, Error>) -> Void
 
 public enum OrderingType {
     case ascending, descending
@@ -71,8 +71,8 @@ public extension RealmManageable {
     func clear(writeQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, completion: RealmCompletionHandler? = nil) {
         transaction(writeQueue: writeQueue, isSync: isSync, writeHandler: { (realm) in
             realm.deleteAll()
-        }) { (realm, error) in
-            completion?(realm, error)
+        }) { (result) in
+            completion?(result)
         }
     }
     
@@ -128,9 +128,15 @@ public extension RealmManageable {
             print("RealmManager not write to database: \(error)")
         }
         
-        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
-            realm?.refresh()
-            completion?(realm, error)
+        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (result) in
+            switch result {
+            case let .success(realm):
+                realm.refresh()
+                completion?(.success(realm))
+            case let .failure(error):
+                assertionFailure("Realm asyncOpen fail error : \(error)")
+                completion?(.failure(error))
+            }
         }
     }
     

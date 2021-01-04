@@ -19,7 +19,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     func append(_ users: [User], isSync: Bool, completion: (() -> Void)? = nil) {
         rm.transaction(isSync: isSync, writeHandler: { (realm) in
             realm.add(users, update: .all)
-        }) { (realm, error) in
+        }) { (result) in
             completion?()
         }
     }
