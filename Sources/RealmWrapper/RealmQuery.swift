@@ -13,20 +13,20 @@ final public class RealmQuery<T: Object> {
     private(set) var notificationToken: NotificationToken?
     private(set) var section: Int?
     
-    public var results: Results<T>
+    public var results: Results<T>?
     public var count: Int {
-        return results.count
+        return results?.count ?? 0
     }
     
     // MARK: - Subscript
     
-    public subscript(index: Int) -> T {
-        return results[index]
+    public subscript(index: Int) -> T? {
+        return results?[index]
     }
 
     // MARK: - Con(De)structor
 
-    init(results: Results<T>) {
+    init(results: Results<T>?) {
         self.results = results
     }
 
@@ -68,6 +68,8 @@ final public class RealmQuery<T: Object> {
     }
     
     public func registerNotification() {
+        guard let results = results else { return }
+
         clearNotification()
         notificationToken = results.observe { [weak self] (change) in
             guard let weakSelf = self else {return}
