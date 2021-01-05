@@ -36,7 +36,10 @@ final public class RealmQuery<T: Object> {
 
     // MARK: - Public methods
     
-    public func addDeleteNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+    public func addDeleteNotificationBlock<Object: AnyObject>(
+        _ object: Object,
+        block: @escaping (Object, [IndexPath]) -> Void
+    ) -> Self {
         deleteNotificationBlock = { [weak object] (insertions) in
             guard let weakObject = object else {return}
             
@@ -45,7 +48,10 @@ final public class RealmQuery<T: Object> {
         return self
     }
     
-    public func addInsertNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+    public func addInsertNotificationBlock<Object: AnyObject>(
+        _ object: Object,
+        block: @escaping (Object, [IndexPath]) -> Void
+    ) -> Self {
         insertNotificationBlock = { [weak object] (insertions) in
             guard let weakObject = object else {return}
             
@@ -54,7 +60,10 @@ final public class RealmQuery<T: Object> {
         return self
     }
     
-    public func addModificateNotificationBlock<Object: AnyObject>(_ object: Object, block: @escaping (Object, [IndexPath]) -> Void) -> Self {
+    public func addModificateNotificationBlock<Object: AnyObject>(
+        _ object: Object,
+        block: @escaping (Object, [IndexPath]) -> Void
+    ) -> Self {
         modificateNotificationBlock = { [weak object] (insertions) in
             guard let weakObject = object else {return}
             

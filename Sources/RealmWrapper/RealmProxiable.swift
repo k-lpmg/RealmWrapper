@@ -11,7 +11,12 @@ public extension RealmProxiable {
         return RealmManager()
     }
     
-    func query<T: Object>(_ type: T.Type = T.self, filter: String? = nil, sortProperty: String? = nil, ordering: OrderingType = .ascending) -> RealmQuery<T> {
+    func query<T: Object>(
+        _ type: T.Type = T.self,
+        filter: String? = nil,
+        sortProperty: String? = nil,
+        ordering: OrderingType = .ascending
+    ) -> RealmQuery<T> {
         guard let realm = try? Realm(configuration: rm.createConfiguration()) else {
             return RealmQuery(results: nil)
         }
