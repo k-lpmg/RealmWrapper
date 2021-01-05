@@ -130,21 +130,20 @@ public extension RealmManageable {
         completionQueue: DispatchQueue,
         completion: RealmCompletionHandler?
     ) {
-        let configuration = createConfiguration()
-        guard let realm = try? Realm(configuration: configuration) else {
-            fatalError("RealmManager not find to database")
-        }
         do {
+            let configuration = createConfiguration()
+            let realm = try Realm(configuration: configuration)
             try realm.write {
                 writeHandler(realm)
             }
+
+            Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
+                realm?.refresh()
+                completion?(realm, error)
+            }
         } catch {
             print("RealmManager not write to database: \(error)")
-        }
-        
-        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
-            realm?.refresh()
-            completion?(realm, error)
+            completion?(nil, error)
         }
     }
     
