@@ -51,15 +51,15 @@ class RealmCRUDTests: XCTestCase {
         
         MockUserRealmProxy().append(user)
         XCTAssertEqual(users.count, 1)
-        XCTAssertEqual(users.results.first?.id, userId)
-        XCTAssertEqual(users.results.first?.name, name1)
-        XCTAssertEqual(users.results.first?.age, age1)
+        XCTAssertEqual(users.results?.first?.id, userId)
+        XCTAssertEqual(users.results?.first?.name, name1)
+        XCTAssertEqual(users.results?.first?.age, age1)
         
         MockUserRealmProxy().updateName(id: userId!, name: "user2", age: 2)
         XCTAssertEqual(users.count, 1)
-        XCTAssertEqual(users.results.first?.id, userId)
-        XCTAssertNotEqual(users.results.first?.name, name1)
-        XCTAssertNotEqual(users.results.first?.age, age1)
+        XCTAssertEqual(users.results?.first?.id, userId)
+        XCTAssertNotEqual(users.results?.first?.name, name1)
+        XCTAssertNotEqual(users.results?.first?.age, age1)
     }
     
     func testDelete() {
