@@ -31,8 +31,9 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     }
     
     func deleteAll() {
+        guard let usersResults = users.results else { return }
         rm.transaction(writeHandler: { (realm) in
-            realm.delete(self.users.results)
+            realm.delete(usersResults)
         })
     }
     
@@ -47,7 +48,7 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     }
     
     func userFromId(_ id: String) -> User? {
-        return query(filter: "id == '\(id)'").results.first
+        return query(filter: "id == '\(id)'").results?.first
     }
     
     func userWithFilter(_ filter: String) -> RealmQuery<User> {

@@ -75,7 +75,7 @@ final class TableViewController: UITableViewController {
             .registerNotification()
     }
     
-    private func getUserFrom(indexPath: IndexPath) -> User {
+    private func getUserFrom(indexPath: IndexPath) -> User? {
         return indexPath.section == 0 ? users[indexPath.row] : usersInMemory[indexPath.row]
     }
     
@@ -167,7 +167,7 @@ extension TableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let id = getUserFrom(indexPath: indexPath).id else {return}
+        guard let id = getUserFrom(indexPath: indexPath)?.id else {return}
         
         let controller = EditViewController(isUseInMemory: indexPath.section != 0, id: id)
         navigationController?.pushViewController(controller, animated: true)
@@ -179,11 +179,13 @@ extension TableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard indexPath.section == 0 else {
-            UserInMemoryRealmProxy().delete(getUserFrom(indexPath: indexPath))
-            return
+        guard let user = getUserFrom(indexPath: indexPath) else { return }
+
+        if indexPath.section == 0 {
+            UserInMemoryRealmProxy().delete(user)
+        } else {
+            UserRealmProxy().delete(user)
         }
-        UserRealmProxy().delete(getUserFrom(indexPath: indexPath))
     }
     
 }

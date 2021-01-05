@@ -68,7 +68,11 @@ public extension RealmManageable {
     
     // MARK: - Public methods
     
-    func clear(writeQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, completion: RealmCompletionHandler? = nil) {
+    func clear(
+        writeQueue: DispatchQueue = Self.defaultQueue,
+        isSync: Bool = true,
+        completion: RealmCompletionHandler? = nil
+    ) {
         transaction(writeQueue: writeQueue, isSync: isSync, writeHandler: { (realm) in
             realm.deleteAll()
         }) { (realm, error) in
@@ -100,7 +104,13 @@ public extension RealmManageable {
         return config
     }
     
-    func transaction(writeQueue: DispatchQueue = Self.defaultQueue, isSync: Bool = true, writeHandler: @escaping RealmWriteHandler, completionQueue: DispatchQueue = DispatchQueue.main, completion: RealmCompletionHandler? = nil) {
+    func transaction(
+        writeQueue: DispatchQueue = Self.defaultQueue,
+        isSync: Bool = true,
+        writeHandler: @escaping RealmWriteHandler,
+        completionQueue: DispatchQueue = DispatchQueue.main,
+        completion: RealmCompletionHandler? = nil
+    ) {
         guard isSync else {
             writeQueue.async {
                 self.perform(writeHandler: writeHandler, completionQueue: completionQueue, completion: completion)
@@ -115,22 +125,25 @@ public extension RealmManageable {
     
     // MARK: - Private methods
     
-    private func perform(writeHandler: @escaping RealmWriteHandler, completionQueue: DispatchQueue, completion: RealmCompletionHandler?) {
-        let configuration = createConfiguration()
-        guard let realm = try? Realm(configuration: configuration) else {
-            fatalError("RealmManager not find to database")
-        }
+    private func perform(
+        writeHandler: @escaping RealmWriteHandler,
+        completionQueue: DispatchQueue,
+        completion: RealmCompletionHandler?
+    ) {
         do {
+            let configuration = createConfiguration()
+            let realm = try Realm(configuration: configuration)
             try realm.write {
                 writeHandler(realm)
             }
+
+            Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
+                realm?.refresh()
+                completion?(realm, error)
+            }
         } catch {
             print("RealmManager not write to database: \(error)")
-        }
-        
-        Realm.asyncOpen(configuration: configuration, callbackQueue: completionQueue) { (realm, error) in
-            realm?.refresh()
-            completion?(realm, error)
+            completion?(nil, error)
         }
     }
     

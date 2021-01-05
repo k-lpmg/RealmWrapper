@@ -41,7 +41,7 @@ struct MockUserInMemoryRealmProxy<RealmManager: MockInMemoryRealmManager>: Realm
     }
     
     func userFromId(_ id: String) -> MockUser? {
-        return query(filter: "id == '\(id)'").results.first
+        return query(filter: "id == '\(id)'").results?.first
     }
     
 }
