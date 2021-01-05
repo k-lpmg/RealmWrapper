@@ -13,8 +13,9 @@ public extension RealmProxiable {
     
     func query<T: Object>(_ type: T.Type = T.self, filter: String? = nil, sortProperty: String? = nil, ordering: OrderingType = .ascending) -> RealmQuery<T> {
         guard let realm = try? Realm(configuration: rm.createConfiguration()) else {
-            fatalError("RealmProxiable not find to database")
+            return RealmQuery(results: nil)
         }
+
         var results = realm.objects(type)
         if let filter = filter {
             results = results.filter(filter)
