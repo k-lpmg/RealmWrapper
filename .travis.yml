@@ -1,4 +1,4 @@
-osx_image: xcode10.2
+osx_image: xcode11.6
 language: objective-c
 env:
   global:
@@ -6,7 +6,7 @@ env:
     - SCHEME="RealmWrapper"
     - IOS_SDK="iphonesimulator"
   matrix:
-    - SDK="$IOS_SDK" DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone X"
+    - SDK="$IOS_SDK" DESTINATION="platform=iOS Simulator,OS=13,name=iPhone X"
 
 before_install:
   - brew update
