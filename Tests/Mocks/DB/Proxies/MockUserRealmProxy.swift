@@ -48,11 +48,11 @@ struct MockUserRealmProxy<RealmManager: MockUserRealmManager>: RealmProxiable {
     }
     
     func userFromId(_ id: String) -> MockUser? {
-        return query(filter: "id == '\(id)'").results?.first
+        return query(filter: .string("id == '\(id)'")).results?.first
     }
     
     func userWithFilter(_ filter: String) -> RealmQuery<MockUser> {
-        return query(filter: filter)
+        return query(filter: .string(filter))
     }
     
 }

@@ -41,7 +41,7 @@ struct UserInMemoryRealmProxy<RealmManager: InMemoryRealmManager>: RealmProxiabl
     }
     
     func userFromId(_ id: String) -> User? {
-        return query(filter: "id == '\(id)'").results?.first
+        return query(filter: .string("id == '\(id)'")).results?.first
     }
     
 }
