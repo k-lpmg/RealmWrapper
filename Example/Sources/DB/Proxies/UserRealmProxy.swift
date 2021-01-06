@@ -48,11 +48,11 @@ struct UserRealmProxy<RealmManager: UserRealmManager>: RealmProxiable {
     }
     
     func userFromId(_ id: String) -> User? {
-        return query(filter: "id == '\(id)'").results?.first
+        return query(filter: .string("id == '\(id)'")).results?.first
     }
     
     func userWithFilter(_ filter: String) -> RealmQuery<User> {
-        return query(filter: filter)
+        return query(filter: .string(filter))
     }
     
 }
