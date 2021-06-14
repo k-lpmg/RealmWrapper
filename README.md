@@ -21,7 +21,7 @@ Also, you do not have to worry about the retain cycle when using self in the Not
   - [Installation](#installation)
       - [CocoaPods (iOS 9+)](#cocoapods-ios-9)
       - [Carthage (iOS 9+)](#carthage-ios-9)
-      - [Swift Package Manager (Swift 5.2+, iOS 9+)](#swift-package-manager-swift-52-ios-9)
+      - [Swift Package Manager (Swift 5.2+, iOS 11+)](#swift-package-manager-swift-52-ios-11)
   - [LICENSE](#license)
 
 
@@ -248,7 +248,7 @@ end
 github "k-lpmg/RealmWrapper"
 ```
 
-#### Swift Package Manager (Swift 5.2+, iOS 9+)
+#### Swift Package Manager (Swift 5.2+, iOS 11+)
 
 ```swift
 .package(url: "https://github.com/k-lpmg/RealmWrapper.git", .upToNextMajor(from: "1.4.4")),
