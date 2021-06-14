@@ -1,4 +1,5 @@
 import RealmSwift
+import Foundation
 
 public typealias RealmQueryChanged = ([IndexPath]) -> Void
 
@@ -114,7 +115,9 @@ final public class RealmQuery<T: Object> {
     private func indexPathsFromInt(_ data: [Int]) -> [IndexPath] {
         var indexPaths = [IndexPath]()
         data.forEach { (datum) in
+            #if os(iOS)
             indexPaths.append(IndexPath(row: datum, section: section ?? 0))
+            #endif
         }
         return indexPaths
     }
