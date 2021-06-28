@@ -11,11 +11,18 @@ RealmWrapper is wrapper library for [RealmSwift](https://github.com/realm/realm-
 If you use [RealmWrapper](https://github.com/k-lpmg/RealmWrapper), you can easily use UI update through Notification and Transaction processing.
 Also, you do not have to worry about the retain cycle when using self in the Notification block.
 
-- [At a Glance](#at-a-glance)
-- [Threading](#threading)
-- [Getting Started](#getting-started)
-- [Installation](#installation) 
-- [Usage](#usage)
+- [RealmWrapper](#realmwrapper)
+  - [At a Glance](#at-a-glance)
+  - [Threading](#threading)
+  - [Getting Started](#getting-started)
+  - [Usage](#usage)
+      - [RealmManageable Property](#realmmanageable-property)
+  - [Example](#example)
+  - [Installation](#installation)
+      - [CocoaPods (iOS 9+)](#cocoapods-ios-9)
+      - [Carthage (iOS 9+)](#carthage-ios-9)
+      - [Swift Package Manager (Swift 5.2+, iOS 11+)](#swift-package-manager-swift-52-ios-11)
+  - [LICENSE](#license)
 
 
 ## At a Glance
@@ -241,6 +248,11 @@ end
 github "k-lpmg/RealmWrapper"
 ```
 
+#### Swift Package Manager (Swift 5.2+, iOS 11+)
+
+```swift
+.package(url: "https://github.com/k-lpmg/RealmWrapper.git", .upToNextMajor(from: "1.4.4")),
+```
 
 ## LICENSE
 

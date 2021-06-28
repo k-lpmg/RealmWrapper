@@ -10,3 +10,7 @@ Pods/
 Carthage/Build
 Carthage/Checkouts
 Cartfile.resolved
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
