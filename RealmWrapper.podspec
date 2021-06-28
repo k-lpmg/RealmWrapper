@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.documentation_url = "https://github.com/k-lpmg/RealmWrapper/blob/master/README.md"
 
   s.ios.source_files  = "Sources/**/*.swift"
-  s.ios.deployment_target = "8.0"
+  s.ios.deployment_target = "9.0"
 
   s.swift_version = '5.0'
 
