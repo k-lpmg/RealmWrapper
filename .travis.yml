@@ -11,7 +11,7 @@ env:
 before_install:
   - brew update
   - if brew outdated | grep -qx carthage; then brew upgrade carthage; fi
-  - travis_wait 60 carthage bootstrap --platform iOS
+  - travis_wait 90 carthage bootstrap --platform iOS
 
 install:
   - swift --version
